@@ -1,0 +1,71 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <title>Login</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <script type="application/x-javascript"> addEventListener("load", function() { setTimeout(hideURLbar, 0); }, false); function hideURLbar(){ window.scrollTo(0,1); } </script>
+    <meta name="keywords" content="Flat Dark Web Login Form Responsive Templates, Iphone Widget Template, Smartphone login forms,Login form, Widget Template, Responsive Templates, a Ipad 404 Templates, Flat Responsive Templates" />
+
+    <link href="~/Assets/login/css/style.css" rel="stylesheet" />
+    <!--webfonts-->
+    <link href='http://fonts.useso.com/css?family=PT+Sans:400,700,400italic,700italic|Oswald:400,300,700' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.useso.com/css?family=Exo+2' rel='stylesheet' type='text/css'>
+    <!--//webfonts-->
+    <script src="http://ajax.useso.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+</head>
+<body>
+    <script>
+        $(document).ready(function (c) {
+            $('.close').on('click', function (c) {
+                $('.login-form').fadeOut('slow', function (c) {
+                    $('.login-form').remove();
+                });
+            });
+        });
+    </script>
+    <!--SIGN UP-->
+    <h1>登陆</h1>
+    <div class="login-form">
+        <div class="head-info">
+        </div>
+        <div class="clear"> </div>
+        <div class="avtar">
+            <img src="~/Assets/login/images/avtar.png" />
+        </div>
+        <form>
+            <input id="username" type="text" class="text" value="Username" onfocus="this.value = '';" onblur="if (this.value == '') {this.value = 'Username';}">
+            <div class="key">
+                <input id="password" type="password" value="Password" onfocus="this.value = '';" onblur="if (this.value == '') {this.value = 'Password';}">
+                
+            </div>
+            
+        </form>
+        <p id="tip"></p>
+        <div class="signin">
+            <input type="submit" value="Login" onclick="login()">
+        </div>
+    </div>
+
+    <script src="~/Scripts/jquery-3.3.1.js"></script>
+    <script type="text/javascript">
+        function login() {
+            var username = document.getElementById('username').value;
+            var password = document.getElementById('password').value;
+            $.ajax({
+                type: 'post',
+                url: 'http://www.820803.xyz:2001/api/Login/Login',
+                data: { "username": username, "password": password },
+                dataType: 'json',
+                success: function (result) {
+                    if (result.Status == 1) {
+                        document.getElementById('tip').innerText = "登陆成功";
+                        window.location.href = "http://www.820803.xyz:2002/Home/Index?username=" + result.Info.username + "&level=" + result.Info.level;
+                    } else {
+                        document.getElementById('tip').innerText = "登陆失败";
+                    }
+                }
+            });
+        }
+    </script>
+</body>
+</html>
