@@ -117,6 +117,14 @@ namespace guapi.Controllers
             return result;
         }
 
+        [HttpGet]
+        public List<machine> GetErrorMachinesByFarm(int farmid)
+        {
+            string sql = "select * from machine where farmid = " + farmid + " AND id in(select MachineId FROM `status` where case WHEN MachineType = 0 THEN isRuning = 0 WHEN MachineType = 1 THEN (attr_value < min_attr_value OR attr_value > max_attr_value) END GROUP BY MachineId)";
+
+            var result = db.Database.SqlQuery<machine>(sql).ToList();
+            return result;
+        }
 
         /// <summary>
         /// 获取某台机器的所有属性状态
@@ -133,13 +141,13 @@ namespace guapi.Controllers
             //有问题的
             if(type == 1)
             {
-                sql = "select * from `status` where id in(select id FROM `status` where MachineId = " + machineid + " case WHEN MachineType = 0 THEN isRuning = 0 WHEN MachineType = 1 THEN (attr_value < min_attr_value OR attr_value > max_attr_value) END)";
+                sql = "select * from `status` where id in(select id FROM `status` where MachineId = " + machineid + " AND case WHEN MachineType = 0 THEN isRuning = 0 WHEN MachineType = 1 THEN (attr_value < min_attr_value OR attr_value > max_attr_value) END)";
                 result = db.Database.SqlQuery<status>(sql).ToList();
             }
             //没问题的
             else if(type == 2)
-            {
-                sql = "select * from `status` where id in(select id FROM `status` where MachineId = " + machineid + " case WHEN MachineType = 0 THEN isRuning = 1 WHEN MachineType = 1 THEN (attr_value >= min_attr_value AND attr_value <= max_attr_value) END)";
+            { 
+                sql = "select * from `status` where id in(select id FROM `status` where MachineId = " + machineid + " AND case WHEN MachineType = 0 THEN isRuning = 1 WHEN MachineType = 1 THEN (attr_value >= min_attr_value AND attr_value <= max_attr_value) END)";
                 result = db.Database.SqlQuery<status>(sql).ToList();
             }
             return result;
