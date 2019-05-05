@@ -95,6 +95,9 @@
     <Compile Include="test.cs">
       <DependentUpon>guyunhao.tt</DependentUpon>
     </Compile>
+    <Compile Include="uploadfiles.cs">
+      <DependentUpon>guyunhao.tt</DependentUpon>
+    </Compile>
     <Compile Include="user.cs">
       <DependentUpon>guyunhao.tt</DependentUpon>
     </Compile>

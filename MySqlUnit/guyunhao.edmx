@@ -42,6 +42,17 @@
           <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="name" Type="varchar" MaxLength="255" />
         </EntityType>
+        <EntityType Name="uploadfiles">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="userid" Type="int" />
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="level" Type="int" />
+          <Property Name="name" Type="varchar" MaxLength="255" />
+          <Property Name="date" Type="datetime" Precision="0" />
+          <Property Name="url" Type="varchar" MaxLength="255" />
+        </EntityType>
         <EntityType Name="user">
           <Key>
             <PropertyRef Name="id" />
@@ -58,6 +69,7 @@
           <EntitySet Name="machine" EntityType="Self.machine" Schema="guyunhao" store:Type="Tables" />
           <EntitySet Name="status" EntityType="Self.status" Schema="guyunhao" store:Type="Tables" />
           <EntitySet Name="test" EntityType="Self.test" Schema="guyunhao" store:Type="Tables" />
+          <EntitySet Name="uploadfiles" EntityType="Self.uploadfiles" Schema="guyunhao" store:Type="Tables" />
           <EntitySet Name="user" EntityType="Self.user" Schema="guyunhao" store:Type="Tables" />
         </EntityContainer>
       </Schema></edmx:StorageModels>
@@ -70,6 +82,7 @@
           <EntitySet Name="status" EntityType="guyunhaoModel.status" />
           <EntitySet Name="test" EntityType="guyunhaoModel.test" />
           <EntitySet Name="user" EntityType="guyunhaoModel.user" />
+          <EntitySet Name="uploadfiles" EntityType="guyunhaoModel.uploadfiles" />
         </EntityContainer>
         <EntityType Name="farm">
           <Key>
@@ -118,6 +131,17 @@
           <Property Name="password" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
           <Property Name="username" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
           <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+        </EntityType>
+        <EntityType Name="uploadfiles">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="userid" Type="Int32" />
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="level" Type="Int32" />
+          <Property Name="name" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="date" Type="DateTime" />
+          <Property Name="url" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
         </EntityType>
       </Schema>
     </edmx:ConceptualModels>
@@ -175,6 +199,18 @@
                 <ScalarProperty Name="level" ColumnName="level" />
                 <ScalarProperty Name="sex" ColumnName="sex" />
                 <ScalarProperty Name="imgurl" ColumnName="imgurl" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="uploadfiles">
+            <EntityTypeMapping TypeName="guyunhaoModel.uploadfiles">
+              <MappingFragment StoreEntitySet="uploadfiles">
+                <ScalarProperty Name="url" ColumnName="url" />
+                <ScalarProperty Name="date" ColumnName="date" />
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="level" ColumnName="level" />
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="userid" ColumnName="userid" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
