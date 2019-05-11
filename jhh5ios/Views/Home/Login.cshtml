@@ -59,7 +59,8 @@
                 success: function (result) {
                     if (result.Status == 1) {
                         document.getElementById('tip').innerText = "登陆成功";
-                        window.location.href = "http://www.820803.xyz:2002/Home/Index?username=" + result.Info.username + "&level=" + result.Info.level;
+                        //window.location.href = "http://localhost:53115/Home/Index?username=" + result.Info.username + "&level=" + result.Info.level + "&userid=" + result.Info.id;
+                        window.location.href = "http://www.820803.xyz:2002/Home/Index?username=" + result.Info.username + "&level=" + result.Info.level + "&userid=" + result.Info.id;
                     } else {
                         document.getElementById('tip').innerText = "登陆失败";
                     }
