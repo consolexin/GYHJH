@@ -29,6 +29,7 @@ namespace guapi.Controllers
                 {
                     var postedFile = httpRequest.Files[0];
                     var filename = postedFile.FileName;
+                    if (!filename.Contains(".doc") && !filename.Contains(".xls")) return -1;
                     var path = HttpContext.Current.Server.MapPath("~/UploadFile/");
                     var nowtime = DateTime.Now;
                     var time = nowtime.ToString("yyyyMMddHHmmss");

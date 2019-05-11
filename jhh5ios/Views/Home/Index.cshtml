@@ -450,10 +450,12 @@
                     success: function (data) {
                         if (data == 0) {
                             shownotify("上传失败", file.name);
-                        } else {
+                        } else if (data == 1) {
                             shownotify("上传成功", file.name);
                             document.getElementById('uploadfile').value = "";
                             getFileShow();
+                        } else if (data == -1){
+                            shownotify("不允许上传该类型文件", file.name);
                         }
                     }
                 });
