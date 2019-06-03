@@ -1,4 +1,5 @@
 ﻿using _1511Connection.Filter;
+using Helper;
 using MySqlUnit;
 using Newtonsoft.Json;
 using System;
@@ -22,6 +23,7 @@ namespace _1511Connection.Controllers
             {
                 user = db.stu.SingleOrDefault(t => t.id == user.id);
             }
+            
             return View(user);
         }
 
@@ -32,7 +34,8 @@ namespace _1511Connection.Controllers
 
         public ActionResult LoginCheck(LoginCheckModel lcModel)
         {
-            var stu = db.stu.SingleOrDefault(t => t.number == lcModel.username);
+            var md5_psw = lcModel.password.GetMD5();
+            var stu = db.stu.SingleOrDefault(t => t.number == lcModel.username&t.psw == md5_psw);
             if (stu != null)
             {
                 Session["userinfo"] = JsonConvert.SerializeObject(stu);
@@ -40,6 +43,19 @@ namespace _1511Connection.Controllers
                 return Json(new { State = 1});
             }
             else
+            {
+                return Json(new { State = 0 });
+            }
+        }
+
+        public ActionResult LogOut()
+        {
+            try
+            {
+                Session.Remove("userinfo");
+                return Json(new { State = 1 });
+            }
+            catch (Exception)
             {
                 return Json(new { State = 0 });
             }

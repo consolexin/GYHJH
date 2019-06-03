@@ -68,13 +68,6 @@
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="guyunhaoModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
-        <EntityContainer Name="guyunhaoEntities" annotation:LazyLoadingEnabled="true">
-          <EntitySet Name="farm" EntityType="guyunhaoModel.farm" />
-          <EntitySet Name="machine" EntityType="guyunhaoModel.machine" />
-          <EntitySet Name="status" EntityType="guyunhaoModel.status" />
-          <EntitySet Name="uploadfiles" EntityType="guyunhaoModel.uploadfiles" />
-          <EntitySet Name="user" EntityType="guyunhaoModel.user" />
-        </EntityContainer>
         <EntityType Name="farm">
           <Key>
             <PropertyRef Name="id" />
@@ -127,6 +120,13 @@
           <Property Name="username" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
           <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
         </EntityType>
+        <EntityContainer Name="guyunhaoEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="farm" EntityType="Self.farm" />
+          <EntitySet Name="machine" EntityType="Self.machine" />
+          <EntitySet Name="status" EntityType="Self.status" />
+          <EntitySet Name="uploadfiles" EntityType="Self.uploadfiles" />
+          <EntitySet Name="user" EntityType="Self.user" />
+        </EntityContainer>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -136,57 +136,57 @@
           <EntitySetMapping Name="farm">
             <EntityTypeMapping TypeName="guyunhaoModel.farm">
               <MappingFragment StoreEntitySet="farm">
-                <ScalarProperty Name="id" ColumnName="id" />
                 <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="id" ColumnName="id" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="machine">
             <EntityTypeMapping TypeName="guyunhaoModel.machine">
               <MappingFragment StoreEntitySet="machine">
-                <ScalarProperty Name="id" ColumnName="id" />
-                <ScalarProperty Name="name" ColumnName="name" />
-                <ScalarProperty Name="type" ColumnName="type" />
-                <ScalarProperty Name="signal" ColumnName="signal" />
                 <ScalarProperty Name="farmid" ColumnName="farmid" />
+                <ScalarProperty Name="signal" ColumnName="signal" />
+                <ScalarProperty Name="type" ColumnName="type" />
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="id" ColumnName="id" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="status">
             <EntityTypeMapping TypeName="guyunhaoModel.status">
               <MappingFragment StoreEntitySet="status">
-                <ScalarProperty Name="id" ColumnName="id" />
-                <ScalarProperty Name="MachineId" ColumnName="MachineId" />
-                <ScalarProperty Name="isRuning" ColumnName="isRuning" />
-                <ScalarProperty Name="attr_name" ColumnName="attr_name" />
-                <ScalarProperty Name="attr_value" ColumnName="attr_value" />
-                <ScalarProperty Name="max_attr_value" ColumnName="max_attr_value" />
-                <ScalarProperty Name="min_attr_value" ColumnName="min_attr_value" />
                 <ScalarProperty Name="MachineType" ColumnName="MachineType" />
+                <ScalarProperty Name="min_attr_value" ColumnName="min_attr_value" />
+                <ScalarProperty Name="max_attr_value" ColumnName="max_attr_value" />
+                <ScalarProperty Name="attr_value" ColumnName="attr_value" />
+                <ScalarProperty Name="attr_name" ColumnName="attr_name" />
+                <ScalarProperty Name="isRuning" ColumnName="isRuning" />
+                <ScalarProperty Name="MachineId" ColumnName="MachineId" />
+                <ScalarProperty Name="id" ColumnName="id" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="uploadfiles">
             <EntityTypeMapping TypeName="guyunhaoModel.uploadfiles">
               <MappingFragment StoreEntitySet="uploadfiles">
-                <ScalarProperty Name="url" ColumnName="url" />
-                <ScalarProperty Name="date" ColumnName="date" />
-                <ScalarProperty Name="name" ColumnName="name" />
-                <ScalarProperty Name="level" ColumnName="level" />
-                <ScalarProperty Name="id" ColumnName="id" />
                 <ScalarProperty Name="userid" ColumnName="userid" />
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="level" ColumnName="level" />
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="date" ColumnName="date" />
+                <ScalarProperty Name="url" ColumnName="url" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="user">
             <EntityTypeMapping TypeName="guyunhaoModel.user">
               <MappingFragment StoreEntitySet="user">
-                <ScalarProperty Name="id" ColumnName="id" />
-                <ScalarProperty Name="username" ColumnName="username" />
-                <ScalarProperty Name="password" ColumnName="password" />
-                <ScalarProperty Name="level" ColumnName="level" />
-                <ScalarProperty Name="sex" ColumnName="sex" />
                 <ScalarProperty Name="imgurl" ColumnName="imgurl" />
+                <ScalarProperty Name="sex" ColumnName="sex" />
+                <ScalarProperty Name="level" ColumnName="level" />
+                <ScalarProperty Name="password" ColumnName="password" />
+                <ScalarProperty Name="username" ColumnName="username" />
+                <ScalarProperty Name="id" ColumnName="id" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

@@ -29,6 +29,9 @@
           <Property Name="phone" Type="varchar" MaxLength="255" />
           <Property Name="x" Type="decimal" Precision="65" Scale="15" />
           <Property Name="y" Type="decimal" Precision="65" Scale="15" />
+          <Property Name="psw" Type="varchar" MaxLength="255" Nullable="false" />
+          <Property Name="headUrl" Type="varchar" MaxLength="255" />
+          <Property Name="pcode" Type="varchar" MaxLength="255" />
         </EntityType>
         <EntityContainer Name="dbModelStoreContainer">
           <EntitySet Name="city" EntityType="Self.city" Schema="20155511db" store:Type="Tables" />
@@ -38,65 +41,71 @@
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="dbModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
-        <EntityContainer Name="Entities" annotation:LazyLoadingEnabled="true">
-          <EntitySet Name="stu" EntityType="dbModel.stu" />
-          <EntitySet Name="city" EntityType="dbModel.city" />
-        </EntityContainer>
-        <EntityType Name="stu">
-          <Key>
-            <PropertyRef Name="id" />
-          </Key>
-          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="name" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="false" />
-          <Property Name="number" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="false" />
-          <Property Name="qq" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
-          <Property Name="weixin" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
-          <Property Name="phone" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
-          <Property Name="x" Type="Decimal" />
-          <Property Name="y" Type="Decimal" />
-        </EntityType>
         <EntityType Name="city">
           <Key>
             <PropertyRef Name="id" />
           </Key>
           <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="name" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="name" Type="String" MaxLength="255" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="level" Type="Int32" Nullable="false" />
-          <Property Name="code" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="code" Type="String" MaxLength="255" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="parentcode" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
           <Property Name="X" Type="Decimal" />
           <Property Name="Y" Type="Decimal" />
         </EntityType>
+        <EntityType Name="stu">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="name" Type="String" MaxLength="255" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="number" Type="String" MaxLength="255" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="qq" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="weixin" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="phone" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="x" Type="Decimal" />
+          <Property Name="y" Type="Decimal" />
+          <Property Name="psw" Type="String" MaxLength="255" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="headUrl" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="pcode" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityContainer Name="Entities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="city" EntityType="Self.city" />
+          <EntitySet Name="stu" EntityType="Self.stu" />
+        </EntityContainer>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
         <EntityContainerMapping StorageEntityContainer="dbModelStoreContainer" CdmEntityContainer="Entities">
-          <EntitySetMapping Name="stu">
-            <EntityTypeMapping TypeName="dbModel.stu">
-              <MappingFragment StoreEntitySet="stu">
-                <ScalarProperty Name="y" ColumnName="y" />
-                <ScalarProperty Name="x" ColumnName="x" />
-                <ScalarProperty Name="phone" ColumnName="phone" />
-                <ScalarProperty Name="weixin" ColumnName="weixin" />
-                <ScalarProperty Name="qq" ColumnName="qq" />
-                <ScalarProperty Name="number" ColumnName="number" />
-                <ScalarProperty Name="name" ColumnName="name" />
-                <ScalarProperty Name="id" ColumnName="id" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <EntitySetMapping Name="city">
             <EntityTypeMapping TypeName="dbModel.city">
               <MappingFragment StoreEntitySet="city">
-                <ScalarProperty Name="Y" ColumnName="Y" />
-                <ScalarProperty Name="X" ColumnName="X" />
-                <ScalarProperty Name="parentcode" ColumnName="parentcode" />
-                <ScalarProperty Name="code" ColumnName="code" />
-                <ScalarProperty Name="level" ColumnName="level" />
-                <ScalarProperty Name="name" ColumnName="name" />
                 <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="level" ColumnName="level" />
+                <ScalarProperty Name="code" ColumnName="code" />
+                <ScalarProperty Name="parentcode" ColumnName="parentcode" />
+                <ScalarProperty Name="X" ColumnName="X" />
+                <ScalarProperty Name="Y" ColumnName="Y" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="stu">
+            <EntityTypeMapping TypeName="dbModel.stu">
+              <MappingFragment StoreEntitySet="stu">
+                <ScalarProperty Name="pcode" ColumnName="pcode" />
+                <ScalarProperty Name="headUrl" ColumnName="headUrl" />
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="number" ColumnName="number" />
+                <ScalarProperty Name="qq" ColumnName="qq" />
+                <ScalarProperty Name="weixin" ColumnName="weixin" />
+                <ScalarProperty Name="phone" ColumnName="phone" />
+                <ScalarProperty Name="x" ColumnName="x" />
+                <ScalarProperty Name="y" ColumnName="y" />
+                <ScalarProperty Name="psw" ColumnName="psw" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

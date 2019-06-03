@@ -66,104 +66,104 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="20155511db.Context.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>20155511db.Context.tt</DependentUpon>
-    </Compile>
-    <Compile Include="20155511db.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>20155511db.tt</DependentUpon>
-    </Compile>
-    <Compile Include="20155511db.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>20155511db.edmx</DependentUpon>
-    </Compile>
     <Compile Include="city.cs">
-      <DependentUpon>20155511db.tt</DependentUpon>
+      <DependentUpon>Entities.tt</DependentUpon>
     </Compile>
     <Compile Include="Class1.cs" />
+    <Compile Include="Entities.Context.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Entities.Context.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Entities.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Entities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Entities.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Entities.edmx</DependentUpon>
+    </Compile>
     <Compile Include="farm.cs">
-      <DependentUpon>guyunhao.tt</DependentUpon>
+      <DependentUpon>guyunhaoEntities.tt</DependentUpon>
     </Compile>
-    <Compile Include="guyunhao.Context.cs">
+    <Compile Include="guyunhaoEntities.Context.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>guyunhao.Context.tt</DependentUpon>
+      <DependentUpon>guyunhaoEntities.Context.tt</DependentUpon>
     </Compile>
-    <Compile Include="guyunhao.cs">
+    <Compile Include="guyunhaoEntities.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>guyunhao.tt</DependentUpon>
+      <DependentUpon>guyunhaoEntities.tt</DependentUpon>
     </Compile>
-    <Compile Include="guyunhao.Designer.cs">
+    <Compile Include="guyunhaoEntities.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>guyunhao.edmx</DependentUpon>
+      <DependentUpon>guyunhaoEntities.edmx</DependentUpon>
     </Compile>
     <Compile Include="machine.cs">
-      <DependentUpon>guyunhao.tt</DependentUpon>
+      <DependentUpon>guyunhaoEntities.tt</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="status.cs">
-      <DependentUpon>guyunhao.tt</DependentUpon>
+      <DependentUpon>guyunhaoEntities.tt</DependentUpon>
     </Compile>
     <Compile Include="stu.cs">
-      <DependentUpon>20155511db.tt</DependentUpon>
+      <DependentUpon>Entities.tt</DependentUpon>
     </Compile>
     <Compile Include="uploadfiles.cs">
-      <DependentUpon>guyunhao.tt</DependentUpon>
+      <DependentUpon>guyunhaoEntities.tt</DependentUpon>
     </Compile>
     <Compile Include="user.cs">
-      <DependentUpon>guyunhao.tt</DependentUpon>
+      <DependentUpon>guyunhaoEntities.tt</DependentUpon>
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <EntityDeploy Include="20155511db.edmx">
-      <Generator>EntityModelCodeGenerator</Generator>
-      <LastGenOutput>20155511db.Designer.cs</LastGenOutput>
-    </EntityDeploy>
-    <None Include="20155511db.edmx.diagram">
-      <DependentUpon>20155511db.edmx</DependentUpon>
-    </None>
     <None Include="App.config">
       <SubType>Designer</SubType>
     </None>
-    <EntityDeploy Include="guyunhao.edmx">
+    <EntityDeploy Include="Entities.edmx">
       <Generator>EntityModelCodeGenerator</Generator>
-      <LastGenOutput>guyunhao.Designer.cs</LastGenOutput>
+      <LastGenOutput>Entities.Designer.cs</LastGenOutput>
     </EntityDeploy>
-    <None Include="guyunhao.edmx.diagram">
-      <DependentUpon>guyunhao.edmx</DependentUpon>
+    <None Include="Entities.edmx.diagram">
+      <DependentUpon>Entities.edmx</DependentUpon>
+    </None>
+    <EntityDeploy Include="guyunhaoEntities.edmx">
+      <Generator>EntityModelCodeGenerator</Generator>
+      <LastGenOutput>guyunhaoEntities.Designer.cs</LastGenOutput>
+    </EntityDeploy>
+    <None Include="guyunhaoEntities.edmx.diagram">
+      <DependentUpon>guyunhaoEntities.edmx</DependentUpon>
     </None>
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="20155511db.Context.tt">
-      <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>20155511db.edmx</DependentUpon>
-      <LastGenOutput>20155511db.Context.cs</LastGenOutput>
-    </Content>
-    <Content Include="20155511db.tt">
-      <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>20155511db.edmx</DependentUpon>
-      <LastGenOutput>20155511db.cs</LastGenOutput>
-    </Content>
-    <Content Include="guyunhao.Context.tt">
-      <Generator>TextTemplatingFileGenerator</Generator>
-      <LastGenOutput>guyunhao.Context.cs</LastGenOutput>
-      <DependentUpon>guyunhao.edmx</DependentUpon>
-    </Content>
-    <Content Include="guyunhao.tt">
-      <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>guyunhao.edmx</DependentUpon>
-      <LastGenOutput>guyunhao.cs</LastGenOutput>
-    </Content>
+    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>
   <ItemGroup>
-    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
+    <Content Include="Entities.Context.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>Entities.edmx</DependentUpon>
+      <LastGenOutput>Entities.Context.cs</LastGenOutput>
+    </Content>
+    <Content Include="Entities.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>Entities.edmx</DependentUpon>
+      <LastGenOutput>Entities.cs</LastGenOutput>
+    </Content>
+    <Content Include="guyunhaoEntities.Context.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>guyunhaoEntities.edmx</DependentUpon>
+      <LastGenOutput>guyunhaoEntities.Context.cs</LastGenOutput>
+    </Content>
+    <Content Include="guyunhaoEntities.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>guyunhaoEntities.edmx</DependentUpon>
+      <LastGenOutput>guyunhaoEntities.cs</LastGenOutput>
+    </Content>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

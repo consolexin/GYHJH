@@ -1,6 +1,6 @@
 function myAlert(str) {
     $('#myModal .modal-dialog .modal-content .modal-body').html(str);
-    document.getElementById('tempdiv').style.marginTop = (str.length/837)*100+"px";
+    document.getElementById('tempdiv').style.marginTop = (str.length/800)*100+"px";
     $('#myModal').modal('show');
 }
 

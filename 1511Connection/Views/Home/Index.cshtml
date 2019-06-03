@@ -3,11 +3,12 @@
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0;" name="viewport" />
     <!-- Tell the browser to be responsive to screen width -->
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="description" content="">
     <meta name="author" content="">
-    <title>Ready Bootstrap Dashboard</title>
+    <title>15计一信息图</title>
     <link href="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="~/Assets/assets/css/bootstrap.min.css">
 
@@ -25,16 +26,14 @@
             bottom: 0;
             left: 0;
             margin: auto;
-            height: 80%;
-            line-height: 80%;
+            height: 50px;
+            line-height: 50px;
             /*width: 100px;*/
             text-align: center;
             font-size: 15px;
             color: #fff;
             background: rgba(0, 0, 0, 0.6);
             border-radius: 0.1rem;
-            overflow: scroll;
-            overflow-x: hidden;
         }
 
         .allhide {
@@ -175,10 +174,10 @@
                 <div class="hd">标题栏</div>
             </div>*@
         @*顶部*@
-        <div class="main-header">
+        <div class="main-header" style="height:45px">
             <div class="logo-header">
                 <a href="" class="logo">
-                    位置关系
+                    15计一信息图
                 </a>
                 <button class="navbar-toggler sidenav-toggler ml-auto" type="button" data-toggle="collapse" data-target="collapse" aria-controls="sidebar" aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
@@ -213,7 +212,7 @@
                             <span id="username">
                                 @Model.name
                                 <span class="user-level" id="thisul">@Model.number</span>
-                                <span class="caret"></span>
+                                @*<span class="caret"></span>*@
                             </span>
                         </a>
                         @*<div class="clearfix"></div>*@
@@ -344,33 +343,38 @@
         }
 
         function createContent(stu) {
+            var c_name = stu.name == null ? "" : stu.name;
+            var c_address = stu.pcode == null ? "" : stu.pcode;
+            var c_wx = stu.weixin == null ? "" : stu.weixin;
+            var c_phone = stu.phone == null ? "" : stu.phone;
+            var c_qq = stu.qq == null ? "" : stu.qq;
             return '<div class="panel">' +
                 '<div class="media leftpanel-profile">' +
                 '<div class="media-left">' +
                 '<img src="http://mzhdemo.xyz:1990/Images/HeadP/20190307/avatar-195x195.ico" alt="sfdsgfrdgtrg" class="media-object img-circle">' +
                 '</div>' +
                 '<div class="media-body">' +
-                '<h4>' + stu.name + '</h4>' +
+                '<h4>' + c_name + '</h4>' +
                 '</div>' +
                 '</div>' +
                 '<div class="leftpanel-userinfo">' +
-                '<h5 class="sidebar-title">地址</h5>' +
-                '<address>浙江省杭州市滨江区</address>' +
+                    '<h5 class="sidebar-title">地址</h5>' +
+                '<address>' + c_address + '</address>' +
                 '<h5 class="sidebar-title">联系方式</h5>' +
                 '<ul class="list-group">' +
                 '<li class="list-group-item">' +
                 '<label class="pull-left">微信号</label>' +
-                '<span class="pull-right">' + stu.weixin + '</span>' +
+                '<span class="pull-right">' + c_wx + '</span>' +
                 '<div class="clearFloat"></div>' +
                 '</li>' +
                 '<li class="list-group-item">' +
-                '<label class="pull-left">电话</label>' +
-                '<span class="pull-right">' + stu.phone + '</span>' +
+                    '<label class="pull-left">电话</label>' +
+                '<span class="pull-right">' + c_phone + '</span>' +
                 '<div class="clearFloat"></div> ' +
                 ' </li>' +
                 ' <li class="list-group-item">' +
-                ' <label class="pull-left">QQ</label>' +
-                ' <span class="pull-right">' + stu.qq + '</span>' +
+                        ' <label class="pull-left">QQ</label>' +
+                ' <span class="pull-right">' + c_qq + '</span>' +
                 '<div class="clearFloat"></div>' +
                 '</li>' +
 
@@ -388,7 +392,9 @@
                 [pos[0] - 2, pos[1] - 2],
                 [pos[0] + 2, pos[1] + 2]
             ];
+			option["geo"]["roam"] = false;
             myChart.setOption(option);
+
         }
 
 
@@ -398,9 +404,9 @@
 
         }
         function initEchart() {
+            
             stus = getData();
             getPostion(stus);
-
             option = {//显示所有同学的位置的配置
                 backgroundColor: '#404a59',
                 tooltip: {
@@ -420,13 +426,25 @@
                     itemStyle: {
                         normal: {
                             areaColor: '#323c48',
-                            borderColor: '#111'
+							//areaColor: '#ffffff',
+                            borderColor: '#33CCCC',
+							
                         },
                         emphasis: {
-                            areaColor: '#2a333d'
+                            areaColor: '#323c48'
                         }
                     },
-                    roam: true
+                    roam: true,
+                    scaleLimit: { min: 1.3, max: 12 },
+                    //regions: [{                                  //在地图中对特定的区域配置样式。
+                    //    name: '广东',
+                    //    itemStyle: {
+                    //        normal: {
+                    //            areaColor: 'red',
+                    //            color: 'red'
+                    //        }
+                    //    }
+                    //}]
                 },
                 series: [
                     {
@@ -434,7 +452,7 @@
                         type: 'scatter',
                         coordinateSystem: 'geo',
                         data: getAllData(stus),
-                        symbolSize: 12,
+                        symbolSize: 16,
                         label: {
                             normal: {
                                 show: false
@@ -455,7 +473,7 @@
 
             //初始化echarts实例
             myChart = echarts.init(document.getElementById('container'));
-
+            
             myChart.on('click', function (params) {
                 if (params.componentType == 'series') {
                     myAlert(params.value[2]);
@@ -463,9 +481,9 @@
                     // myalert(params.data.value[2]);
                 }
             });
-
+            
             //使用制定的配置项和数据显示图表
-            myChart.setOption(option);
+            myChart.setOption(option, true, false);
         }
 
         var activity_ids = ["stus_list_bt", "user_list_bt"];
@@ -486,6 +504,7 @@
                         document.getElementById('main_content').innerHTML = result;
                         //初始化echarts实例
                         initEchart();
+                        console.log(stus);
                     }
                 })
             } else if (obj.id == 'user_list_bt') {
@@ -501,6 +520,16 @@
 
         }
 
+        function TurnToPerson(x,y) {
+            FoucusOnActivity('stus_list_bt');
+            $toggle = $('.sidenav-toggler');
+            $('html').removeClass('nav_open');
+            $toggle.removeClass('toggled');
+            nav_open = 0;
+            var pos = [x, y];
+            changeOption(option, pos);
+        }
+
         function FoucusOnActivity(id) {
             for (var i = 0; i < activity_ids.length; i++) {
                 if (activity_ids[i] == id) {
@@ -509,6 +538,26 @@
                     document.getElementById(activity_ids[i]).className = "nav-item";
                 }
             }
+        }
+
+        function search() {
+            var key = document.getElementById('search_input').value;
+            var isfind = false;
+            for (var i = 0; i < stus.length; i++) {
+                for (var j = 0; j < stus[i].Stus.length; j++) {
+                    if (stus[i].Stus[j].name == key || stus[i].Stus[j].number == key) {
+                        TurnToPerson(stus[i].Stus[j].x, stus[i].Stus[j].y);
+                        isfind = true;
+                        $('html').removeClass('topbar_open');
+                        $topbar.removeClass('toggled');
+                        topbar_open = 0;
+                        document.getElementById("search_input").value = "";
+                        break;
+                    }
+                }
+                if (isfind) break;
+            }
+            if (!isfind) myalert2("查无此人");
         }
 
         $(function () {
@@ -562,11 +611,73 @@
         });
 
         function saveUserInfo() {
+            var name = document.getElementById('stu_name').value;
+            var phone = document.getElementById('stu_phone').value;
+            var qq = document.getElementById('stu_qq').value;
+            var wx = document.getElementById('stu_wx').value;
+            var obj = document.getElementById('provinceSelect');
+            var seleceIndex = obj.selectedIndex;
+            var pcode = obj.options[seleceIndex].value;
+            obj = document.getElementById('citySelect');
+            seleceIndex = obj.selectedIndex;
+            var ctcode = obj.options[seleceIndex].value;
+            obj = document.getElementById('countrySelect');
+            seleceIndex = obj.selectedIndex;
+            var cycode = obj.options[seleceIndex].value;
+
+            if (name == "") {
+                myalert2("姓名不能为空");
+                return;
+            }
+            $.ajax({
+                type: 'post',
+                url: '/PartView/SaveUserInfo',
+                data: { name: name, phone: phone, qq: qq, wx: wx, pcode: pcode, ctcode: ctcode, cycode: cycode },
+                dataType: 'json',
+                success: function (result) {
+                    if (result.State == 1) {
+                        myalert2("更新成功");
+                        window.location.reload();
+                        //$.ajax({
+                        //    type: 'post',
+                        //    url: '/PartView/UserInfo',
+                        //    dataType: 'html',
+                        //    success: function (result) {
+                        //        document.getElementById('main_content').innerHTML = result;
+                        //    }
+                        //})
+                    } else {
+                        myalert2("服务器异常，请稍后再试");
+                    }
+                }
+            });
 
         }
 
         function updatePsw() {
-
+            var psw1 = document.getElementById('stu_psw1').value;
+            var psw2 = document.getElementById('stu_psw2').value;
+            if (psw1 == "") {
+                myalert2("密码不能为空");
+                return;
+            }
+            if (psw1 != psw2) {
+                myalert2("两次输入密码不一致");
+                return;
+            }
+            $.ajax({
+                type: 'post',
+                url: '/PartView/UpdatePsw',
+                data: { psw1: psw1, psw2: psw2 },
+                dataType: 'json',
+                success: function (result) {
+                    if (result.State == 1) {
+                        myalert2("更新成功");
+                    } else {
+                        myalert2("服务器异常，请稍后再试");
+                    }
+                }
+            });
         }
 
         function PSchange() {
@@ -628,6 +739,36 @@
             });
         }
 
+
+        function myalert2(str) {
+            var div = '<div class="mark" style="width:' + str.length * 20 + 'px"></div>';
+            $('body').append(div)
+            $('.mark').html(str);
+            $('.mark').show();
+            setTimeout(function () {
+                $('.mark').hide();
+                $('.mark').remove();
+            }, 2000)
+        }
+
+        function logout() {
+            $.ajax({
+                type: 'post',
+                url: '/Home/LogOut',
+                dataType: 'json',
+                success: function (result) {
+                    if (result.State == 1) {
+                        myalert2("注销成功");
+                        window.location.href = "http://" + window.location.hostname + ":" + window.location.port + "/Home/login";
+                    } else {
+                        myalert2("注销异常，为您跳转到登录界面");
+                        setTimeout(function () {
+                            window.location.href = "http://" + window.location.hostname + ":" + window.location.port + "/Home/login";
+                        }, 2000)
+                    }
+                }
+            });
+        }
     </script>
 
 </body>

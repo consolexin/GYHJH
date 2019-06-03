@@ -133,6 +133,16 @@ namespace _1511Connection.Models
                 }
             }
         }
-   
+        
+        public static void UpdateUserPsw()
+        {
+            var db = new Entities();
+            var stus = db.stu.ToList();
+            for(int i = 0; i < stus.Count(); i++)
+            {
+                stus[i].psw = stus[i].number.GetMD5();
+            }
+            db.SaveChanges();
+        }
     }
 }

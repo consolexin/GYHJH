@@ -17,7 +17,7 @@ namespace _1511Connection
             FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);
             RouteConfig.RegisterRoutes(RouteTable.Routes);
             BundleConfig.RegisterBundles(BundleTable.Bundles);
-           // CityInfo.update();
+            //CityInfo.UpdateUserPsw();
 
 
         }

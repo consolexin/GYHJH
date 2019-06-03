@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width,initial-scale=1">
-    <title>Lowin</title>
+    <title>计一信息图登录</title>
     <link href="~/Content/auth.css" rel="stylesheet" />
     <style>
         /*自制弹窗样式*/
@@ -36,7 +36,7 @@
         <div class="lowin-wrapper">
             <div class="lowin-box lowin-login">
                 <div class="lowin-box-inner">
-                    <p>后台登陆</p>
+                    <p>15计一信息图</p>
                     <div class="lowin-group">
                         <label>用户名 <a href="#" class="login-back-link">Sign in?</a></label>
                         <input id="login_username" @*type="email" autocomplete="email" name="email"*@ class="lowin-input">
@@ -49,9 +49,9 @@
                         登陆
                     </button>
 
-                    <div class="text-foot">
+                    @*<div class="text-foot">
                         没有账号? <a href="" class="register-link">注册</a>
-                    </div>
+                    </div>*@
                 </div>
             </div>
 
@@ -115,6 +115,8 @@
                     if (result.State == 1) {
                         myalert("登陆成功")
                         window.location.href = "http://" + window.location.hostname + ":" + window.location.port + "/Home/index";
+                    } else {
+                        myalert("用户名或者密码错误")
                     }
                 }
             });

@@ -25,7 +25,7 @@ namespace MySqlUnit
             throw new UnintentionalCodeFirstException();
         }
     
-        public virtual DbSet<stu> stu { get; set; }
         public virtual DbSet<city> city { get; set; }
+        public virtual DbSet<stu> stu { get; set; }
     }
 }

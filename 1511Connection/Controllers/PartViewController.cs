@@ -27,6 +27,41 @@ namespace _1511Connection.Controllers
             var user = GetCookieUserInfo();
             user = db.stu.SingleOrDefault(t => t.id == user.id);
             ViewBag.provinces = getProvinces();
+            ViewBag.cities = new List<city>();
+            ViewBag.conuntries = new List<city>();
+            ViewBag.pvcode = "";
+            ViewBag.ctcode = "";
+            ViewBag.cycode = "";
+            var city = db.city.SingleOrDefault(t => t.code == user.pcode);
+            if (city != null)
+            {
+                while (city.level > 1)
+                {
+                    switch (city.level)
+                    {
+                        case 3:
+                            ViewBag.cycode = city.code;
+                            break;
+                        case 2:
+                            ViewBag.ctcode = city.code;
+                            break;
+                        default:
+                            break;
+                    }
+                    city = db.city.SingleOrDefault(t => t.code == city.parentcode);
+                }
+                ViewBag.pvcode = city.code;
+            }
+            if(ViewBag.pvcode != "")
+            {
+                string temp = ViewBag.pvcode;
+                ViewBag.cities = db.city.Where(t => t.parentcode == temp).ToList();
+                if(ViewBag.ctcode != "")
+                {
+                    temp = ViewBag.ctcode;
+                    ViewBag.conuntries = db.city.Where(t => t.parentcode == temp).ToList();
+                }
+            }
             return PartialView(user);
         }
 
@@ -49,6 +84,7 @@ namespace _1511Connection.Controllers
                     city = db.city.SingleOrDefault(t => t.code == s_code);
                     user.x = city.X;
                     user.y = city.Y;
+                    user.pcode = s_code;
                 }
                 else if (res.ctcode > -1)
                 {
@@ -56,6 +92,7 @@ namespace _1511Connection.Controllers
                     city = db.city.SingleOrDefault(t => t.code == s_code);
                     user.x = city.X;
                     user.y = city.Y;
+                    user.pcode = s_code;
                 }
                 else
                 {
@@ -63,7 +100,9 @@ namespace _1511Connection.Controllers
                     city = db.city.SingleOrDefault(t => t.code == s_code);
                     user.x = city.X;
                     user.y = city.Y;
+                    user.pcode = s_code;
                 }
+                db.SaveChanges();
                 return Json(new { State = 1 });
             }
             catch (Exception)
@@ -78,8 +117,8 @@ namespace _1511Connection.Controllers
             {
                 var user = GetCookieUserInfo();
                 user = db.stu.SingleOrDefault(t => t.id == user.id);
-                string psw = res.psw1.GetMD5();
-
+                user.psw = res.psw1.GetMD5();
+                db.SaveChanges();
                 return Json(new { State = 1 });
             }
             else

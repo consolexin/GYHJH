@@ -2,6 +2,8 @@
 @using MySqlUnit;
 @{
     List<city> provinces = ViewBag.provinces as List<city>;
+    List<city> cities = ViewBag.cities as List<city>;
+    List<city> conuntries = ViewBag.conuntries as List<city>;
 }
 <div class="row mt-4">
     <div class="col-md-12">
@@ -55,14 +57,46 @@
                             <option value="-1">请选择</option>
                             @for (int i = 0; i < provinces.Count(); i++)
                             {
-                                <option value="@provinces[i].code">@provinces[i].name</option>
+                                if (provinces[i].code == ViewBag.pvcode)
+                                {
+                                    <option value="@provinces[i].code" selected = "selected">@provinces[i].name</option>
+                                }
+                                else
+                                {
+                                    <option value="@provinces[i].code">@provinces[i].name</option>
+                                }
+
                             }
                         </select>
                         <select id="citySelect" class="form-control" style="width:30%;float:left" onchange="CTchange()">
                             <option value="-1">请选择</option>
+                            @for (int i = 0; i < cities.Count(); i++)
+                            {
+                                if (cities[i].code == ViewBag.ctcode)
+                                {
+                                    <option value="@cities[i].code" selected="selected">@cities[i].name</option>
+                                }
+                                else
+                                {
+                                    <option value="@cities[i].code">@cities[i].name</option>
+                                }
+
+                            }
                         </select>
                         <select id="countrySelect" class="form-control" style="width:30%;float:left">
                             <option value="-1">请选择</option>
+                            @for (int i = 0; i < conuntries.Count(); i++)
+                            {
+                                if (conuntries[i].code == ViewBag.cycode)
+                                {
+                                    <option value="@conuntries[i].code" selected="selected">@conuntries[i].name</option>
+                                }
+                                else
+                                {
+                                    <option value="@conuntries[i].code">@conuntries[i].name</option>
+                                }
+
+                            }
                         </select>
                     </div>
                 </div>

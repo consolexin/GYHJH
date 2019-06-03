@@ -22,5 +22,8 @@ namespace MySqlUnit
         public string phone { get; set; }
         public Nullable<decimal> x { get; set; }
         public Nullable<decimal> y { get; set; }
+        public string psw { get; set; }
+        public string headUrl { get; set; }
+        public string pcode { get; set; }
     }
 }

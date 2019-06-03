@@ -23,7 +23,8 @@ namespace guapi.Controllers
             int cnd = 0;
             foreach (stu stu in stus)
             {
-                if (stu.x != x || stu.y != y)
+                var point = getCityPoint(stu);
+                if (point.X != x || point.Y != y)
                 {
                     if(cnd != 0)
                     {
@@ -31,24 +32,163 @@ namespace guapi.Controllers
                     }
                     model = new GetStusModel();
                     model.Stus = new List<stu>();
-                    model.X = stu.x.Value;
-                    model.Y = stu.y.Value;
+                    model.X = point.X;
+                    model.Y = point.Y;
+                    var pvcode = "";
+                    var ctcode = "";
+                    var cycode = "";
+                    var pvname = "";
+                    var ctname = "";
+                    var cyname = "";
+                    var city = db.city.SingleOrDefault(t => t.code == stu.pcode);
+                    if (city != null)
+                    {
+                        while (city.level > 1)
+                        {
+                            switch (city.level)
+                            {
+                                case 3:
+                                    cycode = city.code;
+                                    var item = db.city.SingleOrDefault(t => t.code == city.code);
+                                    if (item != null)
+                                    {
+                                        cyname = item.name;
+                                    }
+                                    break;
+                                case 2:
+                                    ctcode = city.code;
+                                    item = db.city.SingleOrDefault(t => t.code == city.code);
+                                    if (item != null)
+                                    {
+                                        ctname = item.name;
+                                    }
+                                    break;
+                                default:
+                                    break;
+                            }
+                            city = db.city.SingleOrDefault(t => t.code == city.parentcode);
+                        }
+                        pvcode = city.code;
+                        pvname = city.name;
+                    }
+                    var address = pvname == ""?"" : (pvname + (ctname == "" ? "" : (ctname + (cyname == "" ? "" : cyname))));
+                    stu.pcode = address;
                     model.Stus.Add(stu);
                 }
                 else
                 {
-                    model.X = stu.x.Value;
-                    model.Y = stu.y.Value;
+                    model.X = point.X;
+                    model.Y = point.Y;
+                    var pvcode = "";
+                    var ctcode = "";
+                    var cycode = "";
+                    var pvname = "";
+                    var ctname = "";
+                    var cyname = "";
+                    var city = db.city.SingleOrDefault(t => t.code == stu.pcode);
+                    if (city != null)
+                    {
+                        while (city.level > 1)
+                        {
+                            switch (city.level)
+                            {
+                                case 3:
+                                    cycode = city.code;
+                                    var item = db.city.SingleOrDefault(t => t.code == city.code);
+                                    if (item != null)
+                                    {
+                                        cyname = item.name;
+                                    }
+                                    break;
+                                case 2:
+                                    ctcode = city.code;
+                                    item = db.city.SingleOrDefault(t => t.code == city.code);
+                                    if (item != null)
+                                    {
+                                        ctname = item.name;
+                                    }
+                                    break;
+                                default:
+                                    break;
+                            }
+                            city = db.city.SingleOrDefault(t => t.code == city.parentcode);
+                        }
+                        pvcode = city.code;
+                        pvname = city.name;
+                    }
+                    var address = pvname == "" ? "" : (pvname + (ctname == "" ? "" : (ctname + (cyname == "" ? "" : cyname))));
+                    stu.pcode = address;
                     model.Stus.Add(stu);
                 }
-                x = stu.x.Value;
-                y = stu.y.Value;
+                x = point.X;
+                y = point.Y;
                 cnd++;
             }
             result.Add(model);
             return result;
         }
         
+        public GerStuPosRes getCityPoint(stu stu)
+        {
+            GerStuPosRes result = new GerStuPosRes();
+            var pvcode = "";
+            var ctcode = "";
+            var cycode = "";
+            var pvname = "";
+            var ctname = "";
+            var cyname = "";
+            var city = db.city.SingleOrDefault(t => t.code == stu.pcode);
+            if (city != null)
+            {
+                while (city.level > 1)
+                {
+                    switch (city.level)
+                    {
+                        case 3:
+                            cycode = city.code;
+                            var item = db.city.SingleOrDefault(t => t.code == city.code);
+                            if (item != null)
+                            {
+                                cyname = item.name;
+                            }
+                            break;
+                        case 2:
+                            ctcode = city.code;
+                            item = db.city.SingleOrDefault(t => t.code == city.code);
+                            if (item != null)
+                            {
+                                ctname = item.name;
+                            }
+                            break;
+                        default:
+                            break;
+                    }
+                    city = db.city.SingleOrDefault(t => t.code == city.parentcode);
+                }
+                pvcode = city.code;
+                pvname = city.name;
+            }
+            if(ctcode != "")
+            {
+                var item = db.city.SingleOrDefault(t => t.code == ctcode);
+                if(item != null)
+                {
+                    result.X = item.X.Value;
+                    result.Y = item.Y.Value;
+                }
+            }
+            else
+            {
+                var item = db.city.SingleOrDefault(t => t.code == pvcode);
+                if (item != null)
+                {
+                    result.X = item.X.Value;
+                    result.Y = item.Y.Value;
+                }
+            }
+            return result;
+        }
+
         [HttpGet]
         public GerStuPosRes SearchStu(string key)
         {
