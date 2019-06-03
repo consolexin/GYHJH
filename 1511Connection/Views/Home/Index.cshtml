@@ -1,0 +1,626 @@
+﻿@model MySqlUnit.stu
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <!-- Tell the browser to be responsive to screen width -->
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <title>Ready Bootstrap Dashboard</title>
+    <link href="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="~/Assets/assets/css/bootstrap.min.css">
+
+    <link rel="stylesheet" href="~/Assets/assets/css/ready.css">
+    <link rel="stylesheet" href="~/Assets/assets/css/demo.css">
+    <link href="~/Scripts/admin/vendor/font-awesome/css/fontawesome-all.min.css" rel="stylesheet" />
+    <style>
+        /*自制弹窗样式*/
+
+        .mark {
+            display: none;
+            position: fixed;
+            top: 0;
+            right: 0;
+            bottom: 0;
+            left: 0;
+            margin: auto;
+            height: 80%;
+            line-height: 80%;
+            /*width: 100px;*/
+            text-align: center;
+            font-size: 15px;
+            color: #fff;
+            background: rgba(0, 0, 0, 0.6);
+            border-radius: 0.1rem;
+            overflow: scroll;
+            overflow-x: hidden;
+        }
+
+        .allhide {
+            display: none;
+        }
+
+        .popupcontent {
+            position: absolute;
+            border: 1px solid #CCC;
+            background-color: #F9F9F9;
+            border: 1px solid #333;
+            padding: 5px;
+        }
+
+        #container {
+            height: 600px;
+            width: 900px;
+            background: white;
+            margin: 20px 0 0;
+        }
+
+        .clearFloat {
+            clear: both;
+        }
+
+        .panel {
+            width: 220px;
+            border: none;
+        }
+
+        .leftpanel-profile {
+            padding: 15px;
+            background-color: #3b4354;
+        }
+
+        .media-object {
+            width: 48px;
+            padding: 3px;
+            border: 2px solid #657390;
+        }
+
+        .leftpanel-profile .media-body {
+            color: rgba(255, 255, 255, 0.5);
+            text-align: center;
+        }
+
+        .leftpanel-userinfo {
+            background-color: #464f63;
+            padding-top: 10px;
+            border-bottom-right-radius: 2px;
+            border-bottom-left-radius: 2px;
+        }
+
+        .sidebar-title {
+            text-transform: uppercase;
+            font-size: 11px;
+            color: #9fa8bc;
+            line-height: normal;
+            padding: 0 15px;
+            font-weight: 500;
+            letter-spacing: .5px;
+        }
+
+        .leftpanel-userinfo address {
+            color: rgba(255, 255, 255, 0.9);
+            padding: 0 15px;
+            margin-bottom: 20px;
+        }
+
+        .list-group {
+            margin-bottom: 20px;
+            padding-left: 0;
+        }
+
+        .list-group-item {
+            position: relative;
+            display: block;
+            padding: 10px 15px;
+            margin-bottom: -1px;
+            background-color: #ffffff;
+            border: 1px solid #dddddd;
+        }
+
+        .leftpanel-userinfo .list-group-item {
+            border-left: 0;
+            border-right: 0;
+            border-color: #4c566c;
+            background-color: transparent;
+            color: rgba(255, 255, 255, 0.9);
+        }
+
+            .leftpanel-userinfo .list-group-item:first-child {
+                border-top-right-radius: 0;
+                border-top-left-radius: 0;
+            }
+
+        .Mymark {
+            display: none;
+            position: fixed;
+            top: 0;
+            right: 0;
+            bottom: 0;
+            left: 0;
+            margin: auto;
+            width: 240px;
+            text-align: center;
+            font-size: 15px;
+            color: #fff;
+            border-radius: 0.1rem;
+            /* overflow: scroll; */
+            /* overflow-x: hidden; */
+        }
+
+        #myModal .modal-body .panel {
+            width: 100%;
+        }
+    </style>
+</head>
+<body>
+    <div class="wrapper">
+        @*<div>
+                <div style="height:100px;display:none"></div>
+            <div class="modal fade bs-example-modal-sm" id="myModal" tabindex="0" role="dialog" aria-labelledby="myModalLabel">
+                <div class="modal-dialog modal-sm" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                        </div>
+                        <div class="modal-body">
+                            啦啦啦啦啦啦
+                        </div>
+                    </div>
+                </div>
+            </div>
+            </div>*@
+
+        @*<div class="popupcontent">
+                <div class="hd">标题栏</div>
+            </div>*@
+        @*顶部*@
+        <div class="main-header">
+            <div class="logo-header">
+                <a href="" class="logo">
+                    位置关系
+                </a>
+                <button class="navbar-toggler sidenav-toggler ml-auto" type="button" data-toggle="collapse" data-target="collapse" aria-controls="sidebar" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <button class="topbar-toggler more"><i style="margin-top:15px" class="la la-ellipsis-v"></i></button>
+            </div>
+            <nav class="navbar navbar-header navbar-expand-lg">
+                <div class="container-fluid">
+                    <form class="navbar-left navbar-form nav-search mr-md-3" action="">
+                        <div class="input-group">
+                            <input type="text" placeholder="输入学号或者姓名" class="form-control" id="search_input">
+                            <div class="input-group-append" onclick="search()">
+                                <span class="input-group-text">
+                                    <i class="la la-search search-icon"></i>
+                                </span>
+                            </div>
+                        </div>
+                    </form>
+
+                </div>
+            </nav>
+        </div>
+        @*侧面*@
+        <div class="sidebar">
+            <div class="scrollbar-inner sidebar-wrapper">
+                <div class="user">
+                    <div class="photo">
+                        <img src="~/Assets/assets/img/profile.jpg">
+                    </div>
+                    <div class="info">
+                        <a class="" data-toggle="collapse" href="#collapseExample" aria-expanded="true">
+                            <span id="username">
+                                @Model.name
+                                <span class="user-level" id="thisul">@Model.number</span>
+                                <span class="caret"></span>
+                            </span>
+                        </a>
+                        @*<div class="clearfix"></div>*@
+
+                    </div>
+                </div>
+                <ul class="nav">
+                    <li id="stus_list_bt" class="nav-item active" onclick="TurnActivity(this)">
+                        <a>
+                            <i class="la la-users"></i>
+                            <p>同学信息</p>
+                            <span class="badge badge-count" id="farmsum"></span>
+                        </a>
+                    </li>
+                    <li id="user_list_bt" onclick="TurnActivity(this)" class="nav-item">
+                        <a>
+                            <i class="la la-user"></i>
+                            <p>个人信息</p>
+                            <span class="badge badge-count" id="machinesum"></span>
+                        </a>
+                    </li>
+
+
+                    <li class="nav-item update-pro">
+                        <button data-toggle="modal" data-target="#modalUpdate" onclick="logout()">
+                            <i class="la la-hand-pointer-o"></i>
+                            <p>注销</p>
+                        </button>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <div class="main-panel" id="main_content">
+            @{ Html.RenderAction("Map", "PartView");}
+        </div>
+
+
+
+    </div>
+    <div class="modal fade bs-example-modal-sm" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" >
+
+        <div class="modal-dialog modal-sm" role="document" id="tempdiv" style="margin-top:100px">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                </div>
+                <div class="modal-body">
+                    啦啦啦啦啦啦
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="~/Scripts/jquery-3.3.1.min.js"></script>
+    <script src="~/Assets/assets/js/plugin/jquery-ui-1.12.1.custom/jquery-ui.min.js"></script>
+    <script src="~/Assets/assets/js/core/popper.min.js"></script>
+    <script src="~/Scripts/bootstrap.min.js"></script>
+    <script src="~/Assets/assets/js/plugin/chartist/chartist.min.js"></script>
+    <script src="~/Assets/assets/js/plugin/chartist/plugin/chartist-plugin-tooltip.min.js"></script>
+    <script src="~/Assets/assets/js/plugin/bootstrap-notify/bootstrap-notify.min.js"></script>
+    <script src="~/Assets/assets/js/plugin/bootstrap-toggle/bootstrap-toggle.min.js"></script>
+    <script src="~/Assets/assets/js/plugin/jquery-mapael/jquery.mapael.min.js"></script>
+    <script src="~/Assets/assets/js/plugin/jquery-mapael/maps/world_countries.min.js"></script>
+    <script src="~/Assets/assets/js/plugin/chart-circle/circles.min.js"></script>
+    <script src="~/Assets/assets/js/plugin/jquery-scrollbar/jquery.scrollbar.min.js"></script>
+    <script src="~/Assets/assets/js/ready.min.js"></script>
+    <script src="~/Assets/assets/js/demo.js"></script>
+    <script src="~/Scripts/admin/js/function.js"></script>
+    <script src="~/Assets/assets/js/echarts.min.js"></script>
+    <script src="~/Assets/assets/js/china.js"></script>
+    <script src="~/Assets/assets/js/world.js"></script>
+    <script type="text/javascript">
+        var toggle_sidebar = false,
+            toggle_topbar = false,
+            nav_open = 0,
+            topbar_open = 0;
+        var geoCoordMap = {};//经纬度对象 key为name，value为经纬度
+        var option = {};//myChart配置
+        var myChart = {};//myChart实例
+        var stus = [];//后台json数据
+        var postion = [];//所有人的经纬度数组
+        var allData = [];//convertData的数据
+        /**
+         * 获取后台的json数据
+         * stus [{X, Y, Stus[{},{}]},     {}...]
+         * */
+        function getData() {
+            //后台的json数据
+            $.ajax({
+                url: "http://www.820803.xyz:2001/api/stu/GetStus",
+                type: "post",
+                dataType: "json",
+                async: false,
+                success: function (data) {
+                    stus = data;
+                },
+            });
+            return stus;
+
+        }
+        /**
+         * 所有人的经纬度数组
+         * postion [[x, y], [x, y]]
+         * */
+        function getPostion(result) {
+            //得到所有人的经纬度
+            for (var i = 0; i < result.length; i++) {
+                postion.push([result[i].X, result[i].Y]);
+            }
+            return postion;
+        }
+        /**
+         * convertData的数据
+         * [{name, value}, {}...]
+         * */
+        function getAllData(result) {
+            for (var i = 0; i < result.length; i++) {
+                var content = "";
+                for (var j = 0; j < result[i].Stus.length; j++) {
+                    content += createContent(result[i].Stus[j]);
+
+                }
+                allData.push({
+                    name: [result[i].X, result[i].Y],
+                    value: [result[i].X, result[i].Y].concat(content),
+                });
+            }
+            return allData;
+        }
+
+        function createContent(stu) {
+            return '<div class="panel">' +
+                '<div class="media leftpanel-profile">' +
+                '<div class="media-left">' +
+                '<img src="http://mzhdemo.xyz:1990/Images/HeadP/20190307/avatar-195x195.ico" alt="sfdsgfrdgtrg" class="media-object img-circle">' +
+                '</div>' +
+                '<div class="media-body">' +
+                '<h4>' + stu.name + '</h4>' +
+                '</div>' +
+                '</div>' +
+                '<div class="leftpanel-userinfo">' +
+                '<h5 class="sidebar-title">地址</h5>' +
+                '<address>浙江省杭州市滨江区</address>' +
+                '<h5 class="sidebar-title">联系方式</h5>' +
+                '<ul class="list-group">' +
+                '<li class="list-group-item">' +
+                '<label class="pull-left">微信号</label>' +
+                '<span class="pull-right">' + stu.weixin + '</span>' +
+                '<div class="clearFloat"></div>' +
+                '</li>' +
+                '<li class="list-group-item">' +
+                '<label class="pull-left">电话</label>' +
+                '<span class="pull-right">' + stu.phone + '</span>' +
+                '<div class="clearFloat"></div> ' +
+                ' </li>' +
+                ' <li class="list-group-item">' +
+                ' <label class="pull-left">QQ</label>' +
+                ' <span class="pull-right">' + stu.qq + '</span>' +
+                '<div class="clearFloat"></div>' +
+                '</li>' +
+
+                '</ul>' +
+                '</div>' +
+                ' </div>';
+        }
+        /**
+         * 改变Echart的Option
+         * */
+        function changeOption(option, pos) {
+            myChart.clear();
+            option["geo"]["center"] = pos;
+            option["geo"]["boundingCoords"] = [
+                [pos[0] - 2, pos[1] - 2],
+                [pos[0] + 2, pos[1] + 2]
+            ];
+            myChart.setOption(option);
+        }
+
+
+        window.onload = function () {
+            initEchart();
+
+
+        }
+        function initEchart() {
+            stus = getData();
+            getPostion(stus);
+
+            option = {//显示所有同学的位置的配置
+                backgroundColor: '#404a59',
+                tooltip: {
+                    trigger: 'item',
+                    formatter: function (params) {
+                        return params.value[2];
+                    },
+                },
+                geo: {
+                    map: 'china',
+                    label: {
+                        emphasis: {
+                            show: false
+                        }
+                    },
+                    itemStyle: {
+                        normal: {
+                            areaColor: '#323c48',
+                            borderColor: '#111'
+                        },
+                        emphasis: {
+                            areaColor: '#2a333d'
+                        }
+                    },
+                    roam: true
+                },
+                series: [
+                    {
+                        name: 'pm2.5',
+                        type: 'scatter',
+                        coordinateSystem: 'geo',
+                        data: getAllData(stus),
+                        symbolSize: 12,
+                        label: {
+                            normal: {
+                                show: false
+                            },
+                            emphasis: {
+                                show: false
+                            }
+                        },
+                        itemStyle: {
+                            emphasis: {
+                                borderColor: '#fff',
+                                borderWidth: 1
+                            }
+                        }
+                    }
+                ]
+            }
+
+            //初始化echarts实例
+            myChart = echarts.init(document.getElementById('container'));
+
+            myChart.on('click', function (params) {
+                if (params.componentType == 'series') {
+                    myAlert(params.value[2]);
+                    $('#myModal').modal('show');
+                    // myalert(params.data.value[2]);
+                }
+            });
+
+            //使用制定的配置项和数据显示图表
+            myChart.setOption(option);
+        }
+
+        var activity_ids = ["stus_list_bt", "user_list_bt"];
+
+        function TurnActivity(obj) {
+            FoucusOnActivity(obj.id);
+            $toggle = $('.sidenav-toggler');
+            $('html').removeClass('nav_open');
+            $toggle.removeClass('toggled');
+            nav_open = 0;
+            if (obj.id == 'stus_list_bt') {
+                $.ajax({
+                    type: 'post',
+                    url: '/PartView/Map',
+                    dataType: 'html',
+                    success: function (result) {
+                        //document.getElementById('main_content').innerHTML = "222";
+                        document.getElementById('main_content').innerHTML = result;
+                        //初始化echarts实例
+                        initEchart();
+                    }
+                })
+            } else if (obj.id == 'user_list_bt') {
+                $.ajax({
+                    type: 'post',
+                    url: '/PartView/UserInfo',
+                    dataType: 'html',
+                    success: function (result) {
+                        document.getElementById('main_content').innerHTML = result;
+                    }
+                })
+            }
+
+        }
+
+        function FoucusOnActivity(id) {
+            for (var i = 0; i < activity_ids.length; i++) {
+                if (activity_ids[i] == id) {
+                    document.getElementById(activity_ids[i]).className = "nav-item active";
+                } else {
+                    document.getElementById(activity_ids[i]).className = "nav-item";
+                }
+            }
+        }
+
+        $(function () {
+            $('[data-toggle="tooltip"]').tooltip()
+        });
+
+        jQuery(document).ready(function () {
+            jQuery('.scrollbar-inner').scrollbar();
+        });
+
+        $(document).ready(function () {
+            if (!toggle_sidebar) {
+                $toggle = $('.sidenav-toggler');
+
+                $toggle.click(function () {
+                    if (nav_open == 1) {
+                        $('html').removeClass('nav_open');
+                        $toggle.removeClass('toggled');
+                        nav_open = 0;
+                    } else {
+                        $('html').addClass('nav_open');
+                        $toggle.addClass('toggled');
+                        nav_open = 1;
+                    }
+                });
+                toggle_sidebar = true;
+            }
+            if (!toggle_topbar) {
+                $topbar = $('.topbar-toggler');
+
+                $topbar.click(function () {
+                    if (topbar_open == 1) {
+                        $('html').removeClass('topbar_open');
+                        $topbar.removeClass('toggled');
+                        topbar_open = 0;
+                    } else {
+                        $('html').addClass('topbar_open');
+                        $topbar.addClass('toggled');
+                        topbar_open = 1;
+                    }
+                });
+                toggle_topbar = true;
+            }
+
+            //select all
+            $('[data-select="checkbox"]').change(function () {
+                $target = $(this).attr('data-target');
+                $($target).prop('checked', $(this).prop("checked"));
+            })
+
+        });
+
+
+        function PSchange() {
+            var obj = document.getElementById('provinceSelect');
+            var seleceIndex = obj.selectedIndex;
+            var value = obj.options[seleceIndex].value;
+            loadCities(value);
+            document.getElementById('countrySelect').innerHTML = '<option value="-1">请选择</option>';
+        }
+
+        function CTchange() {
+            var obj = document.getElementById('citySelect');
+            var seleceIndex = obj.selectedIndex;
+            var value = obj.options[seleceIndex].value;
+            alert(value);
+            loadCountries(value);
+        }
+
+        function loadCities(code) {
+            $.ajax({
+                type: 'post',
+                url: '/PartView/getCities',
+                data: { pcode: code },
+                dataType: 'json',
+                success: function (result) {
+                    //document.getElementById('citySelect').innerHTML = "";
+                    if (result.length == 0) {
+                        document.getElementById('citySelect').innerHTML = '<option value="-1">无</option>';
+                    } else {
+                        var content = '<option value="-1">请选择</option>';
+                        for (var i = 0; i < result.length; i++) {
+                            content += '<option value="' + result[i].code + '">' + result[i].name + '</option>'
+                        }
+                        document.getElementById('citySelect').innerHTML = content;
+                    }
+                    
+                }
+            });
+        }
+
+        function loadCountries(code) {
+            $.ajax({
+                type: 'post',
+                url: '/PartView/getCountries',
+                data: { pcode: code },
+                dataType: 'json',
+                success: function (result) {
+                    //document.getElementById('citySelect').innerHTML = "";
+                    if (result.length == 0) {
+                        document.getElementById('countrySelect').innerHTML = '<option value="-1">无</option>';
+                    } else {
+                        var content = '<option value="-1">请选择</option>';
+                        for (var i = 0; i < result.length; i++) {
+                            content += '<option value="' + result[i].code + '">' + result[i].name + '</option>'
+                        }
+                        document.getElementById('countrySelect').innerHTML = content;
+                    }
+
+                }
+            });
+        }
+
+    </script>
+
+</body>

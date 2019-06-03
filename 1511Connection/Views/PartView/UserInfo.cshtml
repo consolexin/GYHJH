@@ -1,0 +1,80 @@
+﻿@model MySqlUnit.stu
+@using MySqlUnit;
+@{
+    List<city> provinces = ViewBag.provinces as List<city>;
+}
+<div class="row mt-4">
+    <div class="col-md-12">
+        <div style="height:30px"></div>
+        <div class="card">
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-md-4">
+                        <div class="input-group mb-3">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text"><i class="fa fa-user"></i></span>
+                            </div>
+                            <input id="uac_username" type="text" class="form-control" placeholder="姓名" value="@Model.name">
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="input-group mb-3">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text"><i class="fa fa-phone"></i></span>
+                            </div>
+                            <input id="uac_username" type="text" class="form-control" placeholder="手机号" value="@Model.phone">
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="input-group mb-3">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text"><i class="fa fa-qrcode"></i></span>
+                            </div>
+                            <input id="uac_username" type="text" class="form-control" placeholder="qq" value="@Model.qq">
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="input-group mb-3">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text"><i class="fa fa-whatsapp"></i></span>
+                            </div>
+                            <input id="uac_username" type="text" class="form-control" placeholder="微信号" value="@Model.weixin">
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="input-group mb-3">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text"><i class="fa fa-sort-numeric-up"></i></span>
+                            </div>
+                            <input type="text" class="form-control" placeholder="学号" value="@Model.number" disabled="disabled">
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <select id="provinceSelect" class="form-control" style="width:30%;float:left" onchange="PSchange()">
+                            <option value="-1">请选择</option>
+                            @for (int i = 0; i < provinces.Count(); i++)
+                            {
+                                <option value="@provinces[i].code">@provinces[i].name</option>
+                            }
+                        </select>
+                        <select id="citySelect" class="form-control" style="width:30%;float:left" onchange="CTchange()">
+                            <option value="-1">请选择</option>
+                        </select>
+                        <select id="countrySelect" class="form-control" style="width:30%;float:left">
+                            <option value="-1">请选择</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="card-body">
+                    <div class="mb-4">
+                        <button class="btn btn-primary" onclick="saveUserInfo()">保存</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+   
+</script>
+

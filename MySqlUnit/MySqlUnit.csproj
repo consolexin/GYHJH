@@ -66,6 +66,24 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="20155511db.Context.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>20155511db.Context.tt</DependentUpon>
+    </Compile>
+    <Compile Include="20155511db.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>20155511db.tt</DependentUpon>
+    </Compile>
+    <Compile Include="20155511db.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>20155511db.edmx</DependentUpon>
+    </Compile>
+    <Compile Include="city.cs">
+      <DependentUpon>20155511db.tt</DependentUpon>
+    </Compile>
     <Compile Include="Class1.cs" />
     <Compile Include="farm.cs">
       <DependentUpon>guyunhao.tt</DependentUpon>
@@ -92,6 +110,9 @@
     <Compile Include="status.cs">
       <DependentUpon>guyunhao.tt</DependentUpon>
     </Compile>
+    <Compile Include="stu.cs">
+      <DependentUpon>20155511db.tt</DependentUpon>
+    </Compile>
     <Compile Include="test.cs">
       <DependentUpon>guyunhao.tt</DependentUpon>
     </Compile>
@@ -103,6 +124,13 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
+    <EntityDeploy Include="20155511db.edmx">
+      <Generator>EntityModelCodeGenerator</Generator>
+      <LastGenOutput>20155511db.Designer.cs</LastGenOutput>
+    </EntityDeploy>
+    <None Include="20155511db.edmx.diagram">
+      <DependentUpon>20155511db.edmx</DependentUpon>
+    </None>
     <None Include="App.config">
       <SubType>Designer</SubType>
     </None>
@@ -116,6 +144,16 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="20155511db.Context.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>20155511db.edmx</DependentUpon>
+      <LastGenOutput>20155511db.Context.cs</LastGenOutput>
+    </Content>
+    <Content Include="20155511db.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>20155511db.edmx</DependentUpon>
+      <LastGenOutput>20155511db.cs</LastGenOutput>
+    </Content>
     <Content Include="guyunhao.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <LastGenOutput>guyunhao.Context.cs</LastGenOutput>
