@@ -1,5 +1,7 @@
 ﻿@model MySqlUnit.stu
-
+@{ 
+    var headurl = Model.headUrl == "" ? "http://www.mzhdemo.xyz:2004/Upload/1.png" : Model.headUrl;
+}
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -8,7 +10,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="description" content="">
     <meta name="author" content="">
-    <title>15计一信息图</title>
+    <title>XTU CS(2015)</title>
     <link href="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="~/Assets/assets/css/bootstrap.min.css">
 
@@ -177,7 +179,7 @@
         <div class="main-header" style="height:45px">
             <div class="logo-header">
                 <a href="" class="logo">
-                    15计一信息图
+                    XTU CS(2015)
                 </a>
                 <button class="navbar-toggler sidenav-toggler ml-auto" type="button" data-toggle="collapse" data-target="collapse" aria-controls="sidebar" aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
@@ -205,7 +207,7 @@
             <div class="scrollbar-inner sidebar-wrapper">
                 <div class="user">
                     <div class="photo">
-                        <img src="~/Assets/assets/img/profile.jpg">
+                        <img id="slider_head" src="@headurl">
                     </div>
                     <div class="info">
                         <a class="" data-toggle="collapse" href="#collapseExample" aria-expanded="true">
@@ -347,11 +349,12 @@
             var c_address = stu.pcode == null ? "" : stu.pcode;
             var c_wx = stu.weixin == null ? "" : stu.weixin;
             var c_phone = stu.phone == null ? "" : stu.phone;
+            var c_headurl = (stu.headUrl == null || stu.headUrl == "") ? "http://www.mzhdemo.xyz:2004/Upload/1.png" : stu.headUrl;
             var c_qq = stu.qq == null ? "" : stu.qq;
             return '<div class="panel">' +
                 '<div class="media leftpanel-profile">' +
                 '<div class="media-left">' +
-                '<img src="http://mzhdemo.xyz:1990/Images/HeadP/20190307/avatar-195x195.ico" alt="sfdsgfrdgtrg" class="media-object img-circle">' +
+                '<img src="' + c_headurl+'" alt="sfdsgfrdgtrg" class="media-object img-circle">' +
                 '</div>' +
                 '<div class="media-body">' +
                 '<h4>' + c_name + '</h4>' +
@@ -486,6 +489,89 @@
             myChart.setOption(option, true, false);
         }
 
+        function initEchart2() {
+
+            //stus = getData();
+            //getPostion(stus);
+            option = {//显示所有同学的位置的配置
+                backgroundColor: '#404a59',
+                tooltip: {
+                    trigger: 'item',
+                    formatter: function (params) {
+                        return params.value[2];
+                    },
+                    show: false
+                },
+                geo: {
+                    map: 'china',
+                    label: {
+                        emphasis: {
+                            show: false
+                        }
+                    },
+                    itemStyle: {
+                        normal: {
+                            areaColor: '#323c48',
+                            //areaColor: '#ffffff',
+                            borderColor: '#33CCCC',
+
+                        },
+                        emphasis: {
+                            areaColor: '#323c48'
+                        }
+                    },
+                    roam: true,
+                    scaleLimit: { min: 1.3, max: 12 },
+                    //regions: [{                                  //在地图中对特定的区域配置样式。
+                    //    name: '广东',
+                    //    itemStyle: {
+                    //        normal: {
+                    //            areaColor: 'red',
+                    //            color: 'red'
+                    //        }
+                    //    }
+                    //}]
+                },
+                series: [
+                    {
+                        name: 'pm2.5',
+                        type: 'scatter',
+                        coordinateSystem: 'geo',
+                        data: getAllData(stus),
+                        symbolSize: 16,
+                        label: {
+                            normal: {
+                                show: false
+                            },
+                            emphasis: {
+                                show: false
+                            }
+                        },
+                        itemStyle: {
+                            emphasis: {
+                                borderColor: '#fff',
+                                borderWidth: 1
+                            }
+                        }
+                    }
+                ]
+            }
+
+            //初始化echarts实例
+            myChart = echarts.init(document.getElementById('container'));
+            myChart.clear();
+            myChart.on('click', function (params) {
+                if (params.componentType == 'series') {
+                    myAlert(params.value[2]);
+                    $('#myModal').modal('show');
+                    // myalert(params.data.value[2]);
+                }
+            });
+
+            //使用制定的配置项和数据显示图表
+            myChart.setOption(option, true, false);
+        }
+
         var activity_ids = ["stus_list_bt", "user_list_bt"];
 
         function TurnActivity(obj) {
@@ -520,6 +606,27 @@
 
         }
 
+        function TurnActivityById(id) {
+            FoucusOnActivity(id);
+            $toggle = $('.sidenav-toggler');
+            $('html').removeClass('nav_open');
+            $toggle.removeClass('toggled');
+            nav_open = 0;
+            $.ajax({
+                type: 'post',
+                url: '/PartView/Map',
+                dataType: 'html',
+                async: false,
+                success: function (result) {
+                    //document.getElementById('main_content').innerHTML = "222";
+                    document.getElementById('main_content').innerHTML = result;
+                    //初始化echarts实例
+                    initEchart2();
+                }
+            })
+
+        }
+
         function TurnToPerson(x,y) {
             FoucusOnActivity('stus_list_bt');
             $toggle = $('.sidenav-toggler');
@@ -546,6 +653,7 @@
             for (var i = 0; i < stus.length; i++) {
                 for (var j = 0; j < stus[i].Stus.length; j++) {
                     if (stus[i].Stus[j].name == key || stus[i].Stus[j].number == key) {
+                        TurnActivityById('stus_list_bt');
                         TurnToPerson(stus[i].Stus[j].x, stus[i].Stus[j].y);
                         isfind = true;
                         $('html').removeClass('topbar_open');
@@ -768,6 +876,39 @@
                     }
                 }
             });
+        }
+
+        function selectImage() {
+            $('#headimgfile').click();
+        } 
+
+        function uploadimg(file) {
+            if (!file.files || !file.files[0]) {
+                return;
+            }
+            var reader = new FileReader();
+            reader.onload = function (evt) {
+                $.ajax({
+                    type: 'post',
+                    url: '/Image/UploadImg',
+                    async: false,
+                    data: { "Content": evt.target.result },
+                    success: function (result) {
+                        if (result.State == 1) {
+                            myalert2("头像更改成功");
+                            //window.location.reload();
+                            document.getElementById('headimg').src = result.Url;
+                            document.getElementById('slider_head').src = result.Url;
+                            
+                        } else {
+                            myalert2("服务器异常，请稍后再试");
+                        }
+                    }, error: function () {
+                        myalert2("服务器异常，请稍后再试");
+                    }
+                });
+            }
+            reader.readAsDataURL(file.files[0]);
         }
     </script>
 

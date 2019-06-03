@@ -4,12 +4,23 @@
     List<city> provinces = ViewBag.provinces as List<city>;
     List<city> cities = ViewBag.cities as List<city>;
     List<city> conuntries = ViewBag.conuntries as List<city>;
+    var headurl = Model.headUrl == "" ? "http://www.mzhdemo.xyz:2004/Upload/1.png" : Model.headUrl;
 }
 <div class="row mt-4">
     <div class="col-md-12">
-        <div style="height:30px"></div>
+
+        <div style="height:40px"></div>
+
+
         <div class="card">
+
             <div class="card-body">
+
+                <div class="row">
+                    <img id="headimg" src="@headurl" style="height:70px;width:70px;margin:0 auto;border-radius:35px" onclick="selectImage()" />
+                    <input type="file" style="display:none" id="headimgfile" onchange="uploadimg(this)" />
+                </div>
+                <div style="height:10px"></div>
                 <div class="row">
                     <div class="col-md-4">
                         <div class="input-group mb-3">
@@ -59,7 +70,7 @@
                             {
                                 if (provinces[i].code == ViewBag.pvcode)
                                 {
-                                    <option value="@provinces[i].code" selected = "selected">@provinces[i].name</option>
+                                    <option value="@provinces[i].code" selected="selected">@provinces[i].name</option>
                                 }
                                 else
                                 {
@@ -99,10 +110,8 @@
                             }
                         </select>
                     </div>
-                </div>
-                <div class="card-body">
-                    <div class="mb-4">
-                        <button class="btn btn-primary" onclick="saveUserInfo()">保存</button>
+                    <div class="col-md-4" style="margin-top:10px">
+                        <button class="btn btn-primary" style="width:100%;" onclick="saveUserInfo()">保存</button>
                     </div>
                 </div>
             </div>
@@ -117,7 +126,7 @@
                             <div class="input-group-prepend">
                                 <span class="input-group-text"><i class="fa fa-scribd"></i></span>
                             </div>
-                            <input id="stu_psw1" type="password" class="form-control" placeholder="新密码" value=""/>
+                            <input id="stu_psw1" type="password" class="form-control" placeholder="新密码" value="" />
                         </div>
                     </div>
                     <div class="col-md-4">
@@ -125,14 +134,11 @@
                             <div class="input-group-prepend">
                                 <span class="input-group-text"><i class="fa fa-scribd"></i></span>
                             </div>
-                            <input id="stu_psw2" type="password" class="form-control" placeholder="确认密码" value=""/>
+                            <input id="stu_psw2" type="password" class="form-control" placeholder="确认密码" value="" />
                         </div>
                     </div>
-
-                </div>
-                <div class="card-body">
-                    <div class="mb-4">
-                        <button class="btn btn-primary" onclick="updatePsw()">更新密码</button>
+                    <div class="col-md-4" style="margin-top:10px">
+                        <button class="btn btn-primary" style="width:100%" onclick="updatePsw()">更新密码</button>
                     </div>
                 </div>
             </div>
@@ -140,6 +146,6 @@
     </div>
 </div>
 <script>
-   
+
 </script>
 

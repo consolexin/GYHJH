@@ -1,9 +1,12 @@
-﻿using System;
+﻿using MySqlUnit;
+using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Drawing.Imaging;
 using System.IO;
 using System.Linq;
+using System.Text;
 using System.Web;
 using System.Web.Mvc;
 
@@ -11,9 +14,10 @@ namespace _1511Connection.Controllers
 {
     public class ImageController : Controller
     {
-        private string ImgPath = "D:\\webWechat\\2\\ActivityPublic\\Upload\\Imgs\\";
+        private Entities db = new Entities();
+        
         //private string ImgPath = "D:\\";
-        private string PublishedImgPath = "http://47.99.118.16:8005/ActivityPublic/Upload/Imgs/";
+        private string PublishedImgPath = "http://www.820803.xyz:2004/Upload/";
 
         /// <summary>
         /// 上传图片接口
@@ -24,28 +28,36 @@ namespace _1511Connection.Controllers
         {
             string test = "";
             test = img.Content;
+            var user = GetCookieUserInfo();
+            if (user != null)
+            {
+                user = db.stu.SingleOrDefault(t => t.id == user.id);
+            }
             try
             {
                 string jpgcontent = img.Content.Split(',')[1];
                 string type = img.Content.Split(';')[0].Split('/')[1];
-                var filename = img.phoneNumber + "-" + DateTime.Now.ToString("yyyy-MM-dd HHmmss") + "." + type;
-                var path = ImgPath + filename;
-                if (type != "jpg")
-                {
-                    Base64ToImg(jpgcontent).Save(path);
-                }
-                else
-                {
-                    Compress(Base64ToImg(jpgcontent), path, 40);
-                }
-
+                var filename = user.id + "-" + DateTime.Now.ToString("yyyy-MM-dd HHmmss") + "." + type;
+                var path = Server.MapPath("~/Upload/") + filename;
+                //if (type != "jpg")
+                //{
+                //    Base64ToImg(jpgcontent).Save(path);
+                //}
+                //else
+                //{
+                //    Compress(Base64ToImg(jpgcontent), path, 40);
+                //}
+                Base64ToImg(jpgcontent).Save(path);
                 System.Drawing.Image localimage = System.Drawing.Image.FromFile(path);
-                double hdivw = (double)localimage.Height / (double)localimage.Width;
-                return Json(new { Msg = "success", url = PublishedImgPath + filename, hdivw = hdivw });
+                //double hdivw = (double)localimage.Height / (double)localimage.Width;
+                string url = PublishedImgPath + filename;
+                user.headUrl = url;
+                db.SaveChanges();
+                return Json(new { State = 1,Url = url});
             }
             catch (Exception ex)
             {
-                return Json(new { Msg = test });
+                return Json(new { State = 0 });
             }
 
         }
@@ -116,11 +128,28 @@ namespace _1511Connection.Controllers
             s.Close();
         }
 
+        public stu GetCookieUserInfo()
+        {
+            try
+            {
+                string t = Session["userinfo"].ToString(); ;
+                Encoding utf8 = Encoding.GetEncoding(65001);
+                byte[] temp = utf8.GetBytes(t);
+                t = utf8.GetString(temp);
+                stu result = JsonConvert.DeserializeObject<stu>(t);
+
+                return result;
+            }
+            catch (Exception e)
+            {
+                return null;
+            }
+        }
     }
 
     public class UploadImg
     {
         public string Content { get; set; }//base64码内容
-        public string phoneNumber { get; set; }//手机号
+        //public string phoneNumber { get; set; }//手机号
     }
 }
