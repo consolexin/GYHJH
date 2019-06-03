@@ -28,7 +28,6 @@ namespace MySqlUnit
         public virtual DbSet<farm> farm { get; set; }
         public virtual DbSet<machine> machine { get; set; }
         public virtual DbSet<status> status { get; set; }
-        public virtual DbSet<test> test { get; set; }
         public virtual DbSet<uploadfiles> uploadfiles { get; set; }
         public virtual DbSet<user> user { get; set; }
     }

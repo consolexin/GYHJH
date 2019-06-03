@@ -72,7 +72,6 @@
           <EntitySet Name="farm" EntityType="guyunhaoModel.farm" />
           <EntitySet Name="machine" EntityType="guyunhaoModel.machine" />
           <EntitySet Name="status" EntityType="guyunhaoModel.status" />
-          <EntitySet Name="test" EntityType="guyunhaoModel.test" />
           <EntitySet Name="uploadfiles" EntityType="guyunhaoModel.uploadfiles" />
           <EntitySet Name="user" EntityType="guyunhaoModel.user" />
         </EntityContainer>
@@ -105,13 +104,6 @@
           <Property Name="isRuning" Type="SByte" />
           <Property Name="MachineId" Type="Int32" Nullable="false" />
           <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-        </EntityType>
-        <EntityType Name="test">
-          <Key>
-            <PropertyRef Name="id" />
-          </Key>
-          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="name" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
         </EntityType>
         <EntityType Name="uploadfiles">
           <Key>

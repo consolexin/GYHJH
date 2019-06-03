@@ -408,6 +408,7 @@
                     formatter: function (params) {
                         return params.value[2];
                     },
+                    show: false
                 },
                 geo: {
                     map: 'china',
@@ -560,6 +561,13 @@
 
         });
 
+        function saveUserInfo() {
+
+        }
+
+        function updatePsw() {
+
+        }
 
         function PSchange() {
             var obj = document.getElementById('provinceSelect');
@@ -573,7 +581,6 @@
             var obj = document.getElementById('citySelect');
             var seleceIndex = obj.selectedIndex;
             var value = obj.options[seleceIndex].value;
-            alert(value);
             loadCountries(value);
         }
 

@@ -36,6 +36,7 @@ namespace _1511Connection.Controllers
             if (stu != null)
             {
                 Session["userinfo"] = JsonConvert.SerializeObject(stu);
+                
                 return Json(new { State = 1});
             }
             else

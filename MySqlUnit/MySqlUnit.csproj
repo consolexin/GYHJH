@@ -113,9 +113,6 @@
     <Compile Include="stu.cs">
       <DependentUpon>20155511db.tt</DependentUpon>
     </Compile>
-    <Compile Include="test.cs">
-      <DependentUpon>guyunhao.tt</DependentUpon>
-    </Compile>
     <Compile Include="uploadfiles.cs">
       <DependentUpon>guyunhao.tt</DependentUpon>
     </Compile>
