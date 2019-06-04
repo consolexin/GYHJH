@@ -1,11 +1,11 @@
 ﻿@model MySqlUnit.stu
-@{ 
+@{
     var headurl = Model.headUrl == "" ? "http://www.mzhdemo.xyz:2004/Upload/1.png" : Model.headUrl;
 }
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-	<meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0;" name="viewport" />
+    <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0;" name="viewport" />
     <!-- Tell the browser to be responsive to screen width -->
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="description" content="">
@@ -17,6 +17,7 @@
     <link rel="stylesheet" href="~/Assets/assets/css/ready.css">
     <link rel="stylesheet" href="~/Assets/assets/css/demo.css">
     <link href="~/Scripts/admin/vendor/font-awesome/css/fontawesome-all.min.css" rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdn.staticfile.org/font-awesome/4.7.0/css/font-awesome.css">
     <style>
         /*自制弹窗样式*/
 
@@ -81,6 +82,11 @@
             color: rgba(255, 255, 255, 0.5);
             text-align: center;
         }
+
+            .leftpanel-profile .media-body span {
+                font-size: 28px;
+                line-height: 48px;
+            }
 
         .leftpanel-userinfo {
             background-color: #464f63;
@@ -247,14 +253,14 @@
                 </ul>
             </div>
         </div>
-        <div class="main-panel" id="main_content">
+        <div class="main-panel" id="main_content" style="height:100%">
             @{ Html.RenderAction("Map", "PartView");}
         </div>
 
 
 
     </div>
-    <div class="modal fade bs-example-modal-sm" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" >
+    <div class="modal fade bs-example-modal-sm" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
 
         <div class="modal-dialog modal-sm" role="document" id="tempdiv" style="margin-top:100px">
             <div class="modal-content">
@@ -302,15 +308,106 @@
          * */
         function getData() {
             //后台的json数据
+
             $.ajax({
                 url: "http://www.820803.xyz:2001/api/stu/GetStus",
                 type: "post",
                 dataType: "json",
-                async: false,
                 success: function (data) {
                     stus = data;
+                    getPostion(stus);
+                    option = {//显示所有同学的位置的配置
+                        backgroundColor: '#404a59',
+                        tooltip: {
+                            trigger: 'item',
+                            formatter: function (params) {
+                                return params.value[2];
+                            },
+                            show: false
+                        },
+                        geo: {
+                            map: 'china',
+                            label: {
+                                emphasis: {
+                                    show: false
+                                }
+                            },
+                            itemStyle: {
+                                normal: {
+                                    areaColor: '#323c48',
+                                    //areaColor: '#ffffff',
+                                    borderColor: '#33CCCC',
+
+                                },
+                                emphasis: {
+                                    areaColor: '#323c48'
+                                }
+                            },
+                            roam: true,
+                            scaleLimit: { min: 1.3, max: 12 },
+                            //regions: [{                                  //在地图中对特定的区域配置样式。
+                            //    name: '广东',
+                            //    itemStyle: {
+                            //        normal: {
+                            //            areaColor: 'red',
+                            //            color: 'red'
+                            //        }
+                            //    }
+                            //}]
+                        },
+                        series: [
+                            {
+                                name: 'pm2.5',
+                                type: 'scatter',
+                                coordinateSystem: 'geo',
+                                data: getAllData(stus),
+                                symbolSize: 16,
+                                label: {
+                                    normal: {
+                                        show: false
+                                    },
+                                    emphasis: {
+                                        show: false
+                                    }
+                                },
+                                itemStyle: {
+                                    emphasis: {
+                                        borderColor: '#fff',
+                                        borderWidth: 1
+                                    }
+                                }
+                            }
+                        ]
+                    }
+
+                    //初始化echarts实例
+                    myChart = echarts.init(document.getElementById('container'));
+
+                    myChart.on('click', function (params) {
+                        if (params.componentType == 'series') {
+                            myAlert(params.value[2]);
+                            $('#myModal').modal('show');
+                            // myalert(params.data.value[2]);
+                        }
+                    });
+
+                    //使用制定的配置项和数据显示图表
+                    myChart.setOption(option, true, false);
+                    //$.ajax({
+                    //    url: "/Home/GetStus",
+                    //    type: "post",
+                    //    dataType: "json",
+                    //    async: false,
+                    //    success: function (data) {
+                    //        stus = data;
+                    //    },
+                    //});
+                    $('.mark').hide();
+                    $('.mark').remove();
+
                 },
             });
+
             return stus;
 
         }
@@ -354,29 +451,29 @@
             return '<div class="panel">' +
                 '<div class="media leftpanel-profile">' +
                 '<div class="media-left">' +
-                '<img src="' + c_headurl+'" alt="sfdsgfrdgtrg" class="media-object img-circle">' +
+                '<img src="' + c_headurl + '" alt="sfdsgfrdgtrg" class="media-object img-circle">' +
                 '</div>' +
                 '<div class="media-body">' +
-                '<h4>' + c_name + '</h4>' +
+                '<span>' + c_name + '</span>' +
                 '</div>' +
                 '</div>' +
                 '<div class="leftpanel-userinfo">' +
-                    '<h5 class="sidebar-title">地址</h5>' +
-                '<address>' + c_address + '</address>' +
+                '<h5 class="sidebar-title">地址</h5>' +
+                '<address><i class="fa fa-map-marker" aria-hidden="true"></i>' + c_address + '</address>' +
                 '<h5 class="sidebar-title">联系方式</h5>' +
                 '<ul class="list-group">' +
                 '<li class="list-group-item">' +
-                '<label class="pull-left">微信号</label>' +
+                '<span class="pull-left"><i class="fa fa-weixin" aria-hidden="true"></i>微信号</span>' +
                 '<span class="pull-right">' + c_wx + '</span>' +
                 '<div class="clearFloat"></div>' +
                 '</li>' +
                 '<li class="list-group-item">' +
-                    '<label class="pull-left">电话</label>' +
+                '<span class="pull-left"><i class="fa fa-phone" aria-hidden="true"></i>电话</span>' +
                 '<span class="pull-right">' + c_phone + '</span>' +
                 '<div class="clearFloat"></div> ' +
                 ' </li>' +
                 ' <li class="list-group-item">' +
-                        ' <label class="pull-left">QQ</label>' +
+                ' <span class="pull-left"><i class="fa fa-qq" aria-hidden="true"></i>QQ</span>' +
                 ' <span class="pull-right">' + c_qq + '</span>' +
                 '<div class="clearFloat"></div>' +
                 '</li>' +
@@ -395,7 +492,7 @@
                 [pos[0] - 2, pos[1] - 2],
                 [pos[0] + 2, pos[1] + 2]
             ];
-			option["geo"]["roam"] = false;
+            option["geo"]["roam"] = false;
             myChart.setOption(option);
 
         }
@@ -403,90 +500,11 @@
 
         window.onload = function () {
             initEchart();
-
-
         }
         function initEchart() {
-            
-            stus = getData();
-            getPostion(stus);
-            option = {//显示所有同学的位置的配置
-                backgroundColor: '#404a59',
-                tooltip: {
-                    trigger: 'item',
-                    formatter: function (params) {
-                        return params.value[2];
-                    },
-                    show: false
-                },
-                geo: {
-                    map: 'china',
-                    label: {
-                        emphasis: {
-                            show: false
-                        }
-                    },
-                    itemStyle: {
-                        normal: {
-                            areaColor: '#323c48',
-							//areaColor: '#ffffff',
-                            borderColor: '#33CCCC',
-							
-                        },
-                        emphasis: {
-                            areaColor: '#323c48'
-                        }
-                    },
-                    roam: true,
-                    scaleLimit: { min: 1.3, max: 12 },
-                    //regions: [{                                  //在地图中对特定的区域配置样式。
-                    //    name: '广东',
-                    //    itemStyle: {
-                    //        normal: {
-                    //            areaColor: 'red',
-                    //            color: 'red'
-                    //        }
-                    //    }
-                    //}]
-                },
-                series: [
-                    {
-                        name: 'pm2.5',
-                        type: 'scatter',
-                        coordinateSystem: 'geo',
-                        data: getAllData(stus),
-                        symbolSize: 16,
-                        label: {
-                            normal: {
-                                show: false
-                            },
-                            emphasis: {
-                                show: false
-                            }
-                        },
-                        itemStyle: {
-                            emphasis: {
-                                borderColor: '#fff',
-                                borderWidth: 1
-                            }
-                        }
-                    }
-                ]
-            }
 
-            //初始化echarts实例
-            myChart = echarts.init(document.getElementById('container'));
-            
-            myChart.on('click', function (params) {
-                if (params.componentType == 'series') {
-                    myAlert(params.value[2]);
-                    $('#myModal').modal('show');
-                    // myalert(params.data.value[2]);
-                }
-            });
-            
-            //使用制定的配置项和数据显示图表
-            myChart.setOption(option, true, false);
+            myalertLoading(getData);
+
         }
 
         function initEchart2() {
@@ -627,7 +645,7 @@
 
         }
 
-        function TurnToPerson(x,y) {
+        function TurnToPerson(x, y) {
             FoucusOnActivity('stus_list_bt');
             $toggle = $('.sidenav-toggler');
             $('html').removeClass('nav_open');
@@ -820,7 +838,7 @@
                         }
                         document.getElementById('citySelect').innerHTML = content;
                     }
-                    
+
                 }
             });
         }
@@ -859,6 +877,15 @@
             }, 2000)
         }
 
+        function myalertLoading(callback) {
+            var div = '<div class="mark" style="width:75px;height:75px"><img src="http://xtu1511.820803.xyz/Upload/load3.gif" style="width:75px;height:75px"/></div>';
+            $('body').append(div)
+            $('.mark').show();
+            setTimeout(function () {
+                callback();
+            }, 100)
+        }
+
         function logout() {
             $.ajax({
                 type: 'post',
@@ -880,7 +907,7 @@
 
         function selectImage() {
             $('#headimgfile').click();
-        } 
+        }
 
         function uploadimg(file) {
             if (!file.files || !file.files[0]) {
@@ -899,7 +926,7 @@
                             //window.location.reload();
                             document.getElementById('headimg').src = result.Url;
                             document.getElementById('slider_head').src = result.Url;
-                            
+
                         } else {
                             myalert2("服务器异常，请稍后再试");
                         }

@@ -27,7 +27,7 @@
                             <div class="input-group-prepend">
                                 <span class="input-group-text"><i class="fa fa-user"></i></span>
                             </div>
-                            <input id="stu_name" type="text" class="form-control" placeholder="姓名" value="@Model.name">
+                            <input id="stu_name" type="text" class="form-control" style="font-size:16px" placeholder="姓名" value="@Model.name">
                         </div>
                     </div>
                     <div class="col-md-4">
@@ -35,36 +35,36 @@
                             <div class="input-group-prepend">
                                 <span class="input-group-text"><i class="fa fa-phone"></i></span>
                             </div>
-                            <input id="stu_phone" type="text" class="form-control" placeholder="手机号" value="@Model.phone">
+                            <input id="stu_phone" type="text" class="form-control" style="font-size:16px" placeholder="手机号" value="@Model.phone">
                         </div>
                     </div>
                     <div class="col-md-4">
                         <div class="input-group mb-3">
                             <div class="input-group-prepend">
-                                <span class="input-group-text"><i class="fa fa-qrcode"></i></span>
+                                <span class="input-group-text"><i class="fa fa-qq"></i></span>
                             </div>
-                            <input id="stu_qq" type="text" class="form-control" placeholder="qq" value="@Model.qq">
+                            <input id="stu_qq" type="text" class="form-control" style="font-size:16px" placeholder="qq" value="@Model.qq">
                         </div>
                     </div>
                     <div class="col-md-4">
                         <div class="input-group mb-3">
                             <div class="input-group-prepend">
-                                <span class="input-group-text"><i class="fa fa-leaf"></i></span>
+                                <span class="input-group-text"><i class="fa fa-weixin"></i></span>
                             </div>
-                            <input id="stu_wx" type="text" class="form-control" placeholder="微信号" value="@Model.weixin">
+                            <input id="stu_wx" type="text" class="form-control" style="font-size:16px" placeholder="微信号" value="@Model.weixin">
                         </div>
                     </div>
                     <div class="col-md-4">
                         <div class="input-group mb-3">
                             <div class="input-group-prepend">
-                                <span class="input-group-text"><i class="fa fa-sort-numeric-up"></i></span>
+                                <span class="input-group-text"><i class="fa fa-address-book"></i></span>
                             </div>
-                            <input type="text" class="form-control" placeholder="学号" value="@Model.number" disabled="disabled">
+                            <input type="text" class="form-control" placeholder="学号" style="font-size:16px" value="@Model.number" disabled="disabled">
                         </div>
                     </div>
 
                     <div class="col-md-4">
-                        <select id="provinceSelect" class="form-control" style="width:30%;float:left" onchange="PSchange()">
+                        <select id="provinceSelect" class="form-control" style="width:33.3%;float:left;height:33px;font-size:16px" onchange="PSchange()">
                             <option value="-1">请选择</option>
                             @for (int i = 0; i < provinces.Count(); i++)
                             {
@@ -79,13 +79,13 @@
 
                             }
                         </select>
-                        <select id="citySelect" class="form-control" style="width:30%;float:left" onchange="CTchange()">
+                        <select id="citySelect" class="form-control" style="width:33.3%;float:left;height:33px;font-size:16px" onchange="CTchange()">
                             <option value="-1">请选择</option>
                             @for (int i = 0; i < cities.Count(); i++)
                             {
                                 if (cities[i].code == ViewBag.ctcode)
                                 {
-                                    <option value="@cities[i].code" selected="selected">@cities[i].name</option>
+                                    <option  value="@cities[i].code" selected="selected">@cities[i].name</option>
                                 }
                                 else
                                 {
@@ -94,7 +94,7 @@
 
                             }
                         </select>
-                        <select id="countrySelect" class="form-control" style="width:30%;float:left">
+                        <select id="countrySelect" class="form-control" style="width:33.3%;float:left;height:33px;font-size:16px">
                             <option value="-1">请选择</option>
                             @for (int i = 0; i < conuntries.Count(); i++)
                             {
@@ -110,6 +110,9 @@
                             }
                         </select>
                     </div>
+                    
+                </div>
+                <div class="row">
                     <div class="col-md-4" style="margin-top:10px">
                         <button class="btn btn-primary" style="width:100%;" onclick="saveUserInfo()">保存</button>
                     </div>
@@ -120,23 +123,25 @@
         <div class="card">
             <div class="card-body">
                 <div class="row">
-
                     <div class="col-md-4">
                         <div class="input-group mb-3">
                             <div class="input-group-prepend">
-                                <span class="input-group-text"><i class="fa fa-scribd"></i></span>
+                                <span class="input-group-text"><i class="fa fa-key"></i></span>
                             </div>
-                            <input id="stu_psw1" type="password" class="form-control" placeholder="新密码" value="" />
+                            <input id="stu_psw1" type="password" class="form-control" style="font-size:16px" placeholder="新密码" value="" />
                         </div>
                     </div>
                     <div class="col-md-4">
                         <div class="input-group mb-3">
                             <div class="input-group-prepend">
-                                <span class="input-group-text"><i class="fa fa-scribd"></i></span>
+                                <span class="input-group-text"><i class="fa fa-key"></i></span>
                             </div>
-                            <input id="stu_psw2" type="password" class="form-control" placeholder="确认密码" value="" />
+                            <input id="stu_psw2" type="password" class="form-control"  style="font-size:16px" placeholder="确认密码" value="" />
                         </div>
                     </div>
+                    
+                </div>
+                <div class="row">
                     <div class="col-md-4" style="margin-top:10px">
                         <button class="btn btn-primary" style="width:100%" onclick="updatePsw()">更新密码</button>
                     </div>

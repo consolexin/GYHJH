@@ -225,6 +225,7 @@
     <Content Include="Content\Site.css" />
     <Content Include="Images\admin\imgs\avatar-1.png" />
     <Content Include="Images\admin\imgs\logo.png" />
+    <Content Include="Images\admin\load3.gif" />
     <Content Include="Images\kodinger.jpg" />
     <Content Include="Scripts\admin\js\carbon.js" />
     <Content Include="Scripts\admin\js\demo.js" />
